@@ -1,0 +1,710 @@
+Programación
+Bloque 06 - Lectura y escritura de información
+
+Índice
+1.- Introducción. 3 
+2.- Flujos. 4 
+2.1.- Tipos de flujos. 4 
+2.1.1.- Flujos de bytes. 4 
+2.1.2.- Flujos de caracteres. 4 
+2.1.3.- Flujos de objetos o complejos. 5 
+2.2.- Clases relativas a flujos. 5 
+2.3.- Utilización de flujos. 6 
+3.- Teclado y Consola. 8 
+3.1.- Flujos estándar. 8 
+3.2.- Entrada desde teclado. 9 
+3.2.1.- La clase Scanner. 9 
+3.2.2.- La clase BufferedReader. 10 
+3.2.3.- La clase Console. 11 
+3.3.- Salida a consola. 11 
+3.3.1.- La case PrintWriter. 11 
+3.3.2.- La clase Console. 12 
+3.3.3.- Salida formateada: printf y format. 12 
+3.3.3.1.- Formateo de números enteros. 14 
+3.3.3.2.- Formateo de números reales. 17 
+3.3.3.3.- String.format. 19 
+4.- Ficheros de datos. 20 
+4.1.- Registros. 20 
+4.2.- Apertura y cierre de ficheros. 20 
+4.2.1.- Ficheros, rutas y carpetas. 21 
+4.2.2.- Modos de acceso. 23 
+4.3.- Escritura y lectura de información en ficheros. 23 
+4.3.1.- Leer ficheros de texto. 23 
+4.3.2.- Escribir ficheros de texto. 25 
+4.3.3.- Leer ficheros binarios. 27 
+4.3.4.- Escritura de ficheros binarios. 28 
+4.3.5.- Lectura de Objetos de Valor. 29 
+4.3.6.- Escritura de Objetos de Valor. 30 
+5.- Utilización de los sistemas de ficheros y directorios. 32 
+5.1.- Gestión de rutas. 32 
+5.2.- Creación y eliminación de ficheros. 33 
+5.2.1.- Crear carpetas. 33 
+5.2.2.- Crear ficheros. 33 
+5.2.3.- Eliminar ficheros y carpetas. 34 
+5.3.- Copia de ficheros. 34 
+5.4.- Información sobre ficheros o carpetas. 34 
+6.- Interfaces Gráficos de Usuario. 36 
+7.- Referencias. 37 
+Apéndice A: Trabajar con la línea de comandos y sus argumentos. 38 
+Proporcionar parámetros a una aplicación Java. 38 
+Recibir parámetros en una aplicación Java. 39 
+Ejemplo. 39 
+
+
+1.- Introducción
+Hasta ahora los programas que hemos realizado realizan una comunicación muy limitada con el mundo externo.  Todos nuestros programas se han basado en entrada desde teclado y salida por consola.  En este tema vamos a ampliar este aspecto, mejorando la salida por consola y además introduciremos nuevas formas de comunicarnos con el exterior:
+
+
+Ficheros: para poder obtener información desde ficheros o enviar información a ficheros. 
+Interfaces gráficos de usuario: para presentar un interfaz más amigable y fácil de usar para el usuario. 
+2.- Flujos
+En Java la mayoría de la entrada / salida desde la aplicación hacia el exterior se realiza mediante flujos.  En Java, un flujo es una secuencia o corriente de datos que fluye desde una fuente u origen (productor) hacia un sumidero o destino (consumidor).  Entre el origen y el destino se establece el flujo que es el canal por el que circulan los datos entre los dos.  Uno de los puntos (origen o destino) puede ser nuestro programa.  Si nuestro programa es origen de un flujo, los datos saldrán de nuestro programa hacia el destino.  Si nuestro programa es destino de un flujo, los datos se recibirán en nuestro programa desde el origen.  Los otros puntos suelen ser dispositivos (teclado, almacenamiento en disco, impresora, ratón, comunicación de red, etc.) 
+
+
+
+
+
+En resumen, los flujos nos permiten conectar a nuestro programa con el exterior para enviar datos o para recibirlos.
+
+2.1.- Tipos de flujos
+En Java existen varios tipos de flujos, según los datos que circulan por los mismos.  Los flujos más básicos y universales son los flujos de bytes en los cuales lo que circula por ellos son bytes, la unidad más básica que puede circular por un flujo.  A partir de estos flujos de bytes se pueden crear flujos con tipos de datos más complejos como caracteres u objetos. 
+
+
+
+2.1.1.- Flujos de bytes
+Un flujo de bytes es, como el nombre indica, una secuencia de bytes o grupos de 8 bits.  Un byte es la unidad mínima que se emplea en los flujos de datos (no se puede enviar ni recibir nada más pequeño).  Este es el tipo de flujo a emplear cuando queremos control total sobre los datos que circulan por el flujo. 
+
+
+
+2.1.2.- Flujos de caracteres
+Los flujos de caracteres son flujos por los que circulan caracteres.  Este es un tipo de flujo más complejo ya que un carácter puede estar representado por 1 a 4 bytes, según la codificación.  La codificación, o juego de caracteres, es una tabla que indica la equivalencia entre bytes y los carácteres que lo representan.  Existen muchos tipos de codificaciones porque han ido evolucionando a lo largo del tiempo conforme los ordenadores iban aumentando en potencia y capacidad y se iban universalizando.  Al inicio los ordenadores sólo se usaban en Estados Unidos, por lo que no era necesario codificar caracteres que no se emplearan en aquel idioma (inglés) y cultura (símbolo del dolar, por ejemplo).  Conforme la tecnología se fué expandiendo fue apareciendo la necesidad de codificar caracteres de más idiomas y culturas.  Algunos idiomas, especialmente los orientales, requieren de una gran cantidad de caracteres, ya que representan palabras completas con un carácter.  En 1991 apareció Unicode que es un estándar definido por un consorcio de empresas, administraciones, etc. cuyo objetivo es diseñar una codificación estándar para todo el mundo, que incluya todos los idiomas y que sirva como la codificación definitiva.  Este es el estándar más usado hoy en día aunque hay que ser cuidadosos porque podemos encontrar información antigua codificada usando otras codificaciones.  Este es el tipo de flujo a usar cuando sabemos a ciencia cierta que lo que circula por el flujo son caraacteres con una cierta codificación. 
+
+
+
+
+
+2.1.3.- Flujos de objetos o complejos
+Por estos flujos circulan objetos completos, incluyendo todo su contenido y estructura. 
+
+2.2.- Clases relativas a flujos
+En Java, todas las clases relativas al uso de flujos están situadas en el paquete java.io 
+Las clases principales o más interesantes son:
+
+InputStream. Es un flujo de bytes de entrada (desde el exterior hacia la aplicación).  No se puede crear directamente sino que hay que usar una de sus subclases. 
+
+FileInputStream. Es un flujo de bytes de entrada desde un fichero situado en almacenamiento secundario (disco) hacia la aplicación.  Es muy utilizado para acceder al contenido de un fichero a bajo nivel, levendo los bytes que lo forman. 
+
+DataInputStream. Es un flujo de bytes de entrada desde el que se puede leer valores primitivos de Java (int, long, double, etc).  Permite leer objetos desde un flujo. 
+
+OutputStream. Es un flujo de bytes de salida (desde la aplicación hacia el exterior). No se puede crear directamente sino que hay que usar una de sus subclases. 
+FileOutputStream. Es un flujo de bytes de salida desde la aplicación hacia un fichero situado en almacenamiento secundario (disco).  Es muy utilizado para tener el control total de cómo se almacena contenido en un fichero. 
+
+DataOutputStream. Es un flujo de bytes de salida hacia el que se puede escribir valores primitivos de Java (int, long, double, etc).  Permite enviar objetos por un flujo. 
+
+PrintStream. Es un flujo de bytes de salida desde la aplicación hacia otro flujo de bytes.  Añade la funcionalidad de impresión formateada de distintos tipos de datos (enteros, reales, etc.) que saldrían por el otro flujo una vez formateados. 
+
+Reader. Es un flujo de caracteres de entrada (desde el exterior hacia la aplicación) No se puede instanciar directamente sino que se usa a partir de sus subclases. 
+InputStreamReader. Es un flujo de caracteres de entrada que toma los datos de un flujo de bytes de entrada.  En otras palabras, toma un flujo de entrada de bytes y lo convierte en un flujo de entrada de caracteres, actuando como un decodificador de bytes a caracteres. 
+
+FileReader. Es un flujo de caracteres de entrada que toma los datos desde un fichero en disco. 
+BufferedReader. Es un flujo de caracteres de entrada que toma los datos desde otro flujo de caracteres de entrada y le añade la capacidad de leer líneas completas de texto de un tirón.  Para ello emplea un buffer interno que además sirve para acelerar la transferencia de datos en algunos casos, por ejemplo en caso de ficheros. 
+
+Writer. Es un flujo de caracteres de salida que envía texto desde el programa hacia el exterior.  No se puede instanciar directamente sino que se usa a partir de sus subclases. 
+
+OutputStreamWriter. Es un flujo de caracteres de salida que envía los datos a un flujo de bytes de salida.  Justo lo inverso que InputStreamWriter. 
+
+FileWriter. Es un flujo de caracteres de salida que envía los datos a un fichero en disco. 
+BufferedWriter. Inverso de BufferedReader.  No es tan útil como éste por lo que se emplea mucho menos. 
+PrintWriter. Es un flujo de caracteres de salida que puede enviar los datos a un fichero en disco, un flujo de bytes de salida u otro flujo de caracteres de salida.  Lo que añade es que permite formatear las salidas con lo cual es la clase mas útil para generar textos. 
+
+StringWriter. Es un flujo de caracteres de salida que envía los datos a una cadena, la cual se puede obtener más tarde. 
+2.3.- Utilización de flujos
+La utilización de flujos requiere un poco de práctica y conocer las posibilidades de cada una de las clases a fin de conseguir la combinación correcta para nuestros propósitos.  En algunos casos hay que combinar varios flujos para obtener el que conviene a nuestros propósitos.  Por ejemplo, si queremos leer caracteres desde un fichero, la clase más apropiada parecería FileReader, ya que esa es precisamente la funcionalidad que ofrece.  Sin embargo, si analizamos su interfaz con cuidado veremos que ofrece los caracteres uno a uno o en bloques mediante un objeto de la clase CharBuffer.  Esta forma de leer caracteres, aunque apropiada en ocasiones, no se adecúa a muchas tareas de proceso de ficheros de caracteres que procesan dichos archivos línea a línea, por ejemplo.  Nuestro programa debería ir leyendo caracteres hasta que encontrara un salto de línea para saber que se ha leido una línea de texto, complicando innecesariamente el código.  Además hay complicaciones con lo que se considera un salto de línea, ya que distintos sistemas operativos usan distintas convenciones.  Por ejemplo, en Linux/Unix una línea termina con el carácter '\r' (retorno de carro) mientras en Windows se usan dos ("\n' '\r', salto de línea y retorno de carro) 
+
+
+
+
+
+¿Cómo podemos añadir la capacidad de leer líneas completas sin tener que escribir mucho código?
+La solución la proporciona la clase BufferedReader, que toma un Reader ya existente y le añade la capacidad de leer líneas completas. En nuestro caso habría que hacer:
+
+FileReader flujoFichero = new FileReader("archivo.txt");
+BufferedReader flujoTexto = new BufferedReader (flujoFichero);
+A partir de ese momento usaríamos sólo el objeto en la variable flujoTexto que ofrece un método, readLine, que nos permite leer desde el fichero una línea por vez. 
+
+Lo que está ocurriendo realmente es que cuando pedimos a flujoTexto que lea una línea mediante el método readLine, este objeto está usando el primer reader flujoFichero, como fuente de caracteres y va leyendo desde allí, o sea desde el fichero, caracteres hasta que consigue una línea completa, momento en que devuelve la misma al cliente final.  De hecho, y como el primer flujo (flujoFichero) no va a ser usado directamente por el código que le sigue y sólo se emplea para construir el BufferedReader, no necesita ser almacenado en ninguna variable por lo que comunmente se hace lo siguiente: 
+
+BufferedReader flujoTexto = new BufferedReader(new FileReader("archivo.txt")); 
+En este caso el objeto FileReader se crea sólo para pasarlo como parámetro al constructor de BufferedReader. 
+
+Se pueden realizar distintas combinaciones de este tipo, siempre teniendo en cuenta la funcionalidad que ofrece cada tipo de flujo y la compatibilidad entre ellos, ya que no todos pueden combinarse con todos, aunque hay una buena cantidad de combinaciones.  En la práctica, tal y como veremos en los siguientes apartados, se usan unas pocas combinaciones porque son las más útiles pero la librería ofrece una buena flexibilidad para poder adaptarse a una buena cantidad de situaciones.  Todo esto sin contar que muchas de las librerías de terceros admiten u ofrecen flujos como medio de entrada o salida.  Por ejemplo, la librería de conexión a la red mediante sockets, ofrece, una vez realizada la conexión, dos flujos de bytes, uno de entrada (InputStream) y otro de salida (OutputStream) como canal de comunicación con el otro extremo de la conexión. 
+Vamos a ver, entonces, como usar los flujos para satisfacer las necesidades más comunes de entrada / salida de nuestros programa. 
+
+
+
+
+
+3.- Teclado y Consola
+Uno de los métodos más veteranos de interacción con el exterior ha sido la consola.  Los usuarios se sentaban delante de una pantalla que sólo imprimía caracteres y un teclado y con esos mimbres se establecía toda la comunicación entre usuario y programa, exceptuando la aparición ocasional de la impresora.  Aunque parezca arcaico, este interfaz entre usuario y ordenador ha estado en uso hasta no hace mucho tiempo cuando la aparición de hardware más potente permitió la aparición de interfaces grráficos de usuario que han mejorado la comunicación entre hombre y máquina.  La entrada / salida por teclado y consola, sin embargo, aún se sigue utilizando, aunque no de una forma tan generalizada en el entorno de ordenadores personales y smartphones, si es predominante en los entornos de servidores. 
+
+
+
+
+3.1.- Flujos estándar
+Toda aplicación Java recibe automáticamente en el momento de su creación tres flujos de datos ya abiertos por la máquina virtual.  Estos flujos estándar son uno de entrada y dos de salida.  Los flujos son:
+
+
+Flujo de entrada estándar. Podemos acceder a él desde el atributo estático System.in.  Es de tipo flujo de bytes (InputStream) 
+Flujo de salida estándar. Podemos acceder a él desde el atributo estático System.out.  Es un flujo de bytes con capacidad de impresión (PrintStream). 
+Flujo de error estándar. Podemos acceder a él desde el atributo estático System.err.  Es similar a System.out 
+
+Normalmente el flujo de entrada estándar está conectado al teclado y los dos flujos de salida están conectados a la consola, aunque es posible reconectar estos flujos a otros origenes o destinos de datos, ya sea desde la línea de comandos al ejecutar la aplicación o desde el IDE usando opciones de inicio de la aplicación.  Se podría conectar, por ejemplo, el flujo de entrada estándar a un fichero de forma que se obtuviera la información desde el contenido del mismo en lugar de desde teclado.  De la misma forma se podría redirigir cualquiera de las salidas (o ambas) a ficheros de forma que lo que envíe la aplicación se guarde en un fichero en lugar de salir por pantalla.  Esto se puede aplicar a cualquier dispositivo que permita actuar como fuente o destino de un flujo de datos, los cuales, en cualquier sistema operativo inspirado en Unix, son casi todos.  Esta forma de funcionar es en la que se basa la filosofía de trabajo de Unix, que ha sido "heredada" por los sistemas operativos modernos.  Esta filosofía consiste en realizar muchas pequeñas utilidades de gestión y mantenimiento del sistema.  Las utilidades son pequeñas y realizan una sola tarea, normalmente de una forma rápida y eficiente.  Para realizar tareas más complejas se unen unas utilidades simples con otras, formando una cadena de forma que la salida de una utilidad se conecta con la entrada de otra.  Por ejemplo, existe una utilidad que toma el contenido de un fichero y lo muestra por la salida estándar (cat).  Si se quiere mostrar el contenido del fichero pero ordenado en orden alfabético, en lugar de complicar cat añadiendo una opción para ordenación, existe una utilidad (sort) que toma lo que entra por su entrada estándar y lo envía a la salida estándar una vez ordenado.  Combinando las dos utilidades podemos mostrar de forma ordenada el contenido de un fichero cualquiera.  En este esquema de las cosas, ¿qué ocurre si la aplicación encuentra algún problema y quiere comunicarlo al usuario?  Si lo envía a la salida estándar se va a mezclar con los datos que van a la siguiente aplicación.  Por lo tanto se creó una segunda salida sólo para la información de error: la salida de error estándar.  Ésta normalmente se conecta a la consola y muestra los mensajes al usuario, mientras que la salida "normal" va por la salida estándar y pasa a la siguiente aplicación de la cadena. 
+De todas formas, este uso no lo vamos a emplear en este curso por lo que para nosotros la entrada estándar siempre irá asociada al flujo por defecto (el teclado) y las salidas estándar irán asociadas a la consola. 
+
+
+
+
+
+3.2.- Entrada desde teclado
+La entrada desde el teclado se realiza leyendo del flujo System.in.  Este es un InputStream, o sea un flujo de bytes de entrada, el cual normalmente no es muy útil porque lo que se pretende es leer texto, el cual posteriormente se puede convertir a otros tipos como entero, real, etc. 
+
+
+Para solucionar esto y obtener texto correctamente existen varias técnicas:
+
+3.2.1.- La clase Scanner
+Existe una clase bastante útil para procesar texto que es la clase java.util.Scanner.  Esta es una clase de utilidad (por eso está en el paquete java.util) que permite procesar un flujo de datos y dividirlo en trozos.  Desde el punto de vista de la entrada por teclado, que es el que nos ocupa, se utiliza usualmente para convertir la entrada del teclado a líneas de texto.  Para esto tenemos un método nextLine() que nos devuelve la siguiente línea desde la entrada, en este caso desde el teclado.  En caso de que no haya datos por leer, nextLine() espera a que los haya.  De ahi la espera que hace el programa. 
+
+
+
+
+
+Una vez leida la línea se puede convertir a entero usando Integer.parseInt(), a double usando Double.parseDouble() o achar, quedándonos con el primer carácter de la cadena usando charAt(0).  Hay que tener cuidado y no emplear los métodos nextInt() o nextDouble() para leer enteros o reales, respectivamente, porque, aunque funcionan, no procesan el salto de línea que se produce al pulsar la tecla Intro, que se queda sin leer y se vuelve a obtener al intentar leer desde teclado a continuación, especialmente si lo que se intenta leer es una cadena.  Además emplean características locales para leer los datos por lo que, por ejemplo, nextDouble podría esperar que se introduzca el número real usando coma para separar la parte entera y decimal o el punto dependiendo de la configuración de Java en el equipo.  Por ejemplo, si hacemos: 
+
+
+
+
+Scanner sc = new Scanner(System.in);
+
+System.out.print("Introduce un numero:");
+int numero = sc.nextInt();
+
+System.out.print("Introduce un texto");
+String texto = sc.nextLine(); 
+
+System.out.println("Numero: " + numero);
+System.out.println("Texto: " + texto);
+
+texto siempre tiene la cadena vacía (de hecho no espera a que lo introduzcamos como sería de esperar). Esto es asi porque nextInt() extrae sólo el número y deja el salto de línea, que después se lee en nextLine().
+
+Por lo tanto siempre es mejor usar nextLine() y procesar nosotros la cadena leida para extraer el valor del tipo que sea.
+
+3.2.2.- La clase BufferedReader
+También se puede emplear la clase BufferedReader para leer desde teclado. Funciona de forma similar a Scanner, aunque requiere algo más de código.
+
+BufferedReader es capaz de leer un flujo de caracteres línea a línea, que es lo que queremos.  Para ello debemos hacer que lea los caracteres desde System.in.
+
+El "problema" es que BufferedReader sólo admite como flujo de entrada un flujo de caracteres, no un flujo de bytes. Es decir, no podemos hacer:
+
+BufferedReader reader = new BufferedReader (System.in);
+Ya que no compila.
+
+Por lo tanto debemos pasar de un flujo de bytes (System.in) a un flujo de caracteres (Reader).  ¿Qué clase de las que hemos visto hace esto? Efectivamente: InputStreamReader.  Esta clase "convierte" un flujo de bytes en un flujo de caracteres, leyendo bytes del flujo y convirtiéndolos en caracteres.  Por lo tanto SI que podríamos hacer: 
+
+
+
+Reader conversor = new InputStreamReader(System.in);
+BufferedReader reader = new BufferedReader (conversor); 
+o, dado que el conversor sólo lo necesitamos para construir el BufferedReader, podemos hacer de forma abreviada: 
+BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
+Una vez obtenido el flujo BufferedReader, lo podemos emplear para leer líneas haciendo: 
+String linea = reader.readLine()
+Otra "complicación" es que readLine() puede lanzar una excepción chequeada IOException.  Lo cual implica que, o bien se captura, usando try...catch o bien se "transfiere" declarándola en throws.  Scanner, por su parte no tiene este problema ya que lo procesa internamente. 
+
+
+
+
+
+3.2.3.- La clase Console
+También se puede usar la clase específica Console para leer desde teclado.  Esta clase no lee desde la entrada estándar sino desde el teclado, independientemente de si la entrada estándar está conectada al teclado o no, por lo que es un método que debe funcionar siempre. 
+Para obtener el único objeto Console que existe en el sistema hay que hacer: 
+Console console = System.console(); 
+Si todo va bien devuelve el objeto que permite acceder a la consola.  Si no hay consola, porque la aplicación se esté ejecutando en un entorno sin consola, por ejemplo, se devuelve null. 
+El objeto Console proporciona algunos métodos muy útiles: 
+
+
+
+
+
+readLine(). Lee una línea de texto desde la consola, como las anteriores. 
+readLine(String fmt, Object... args). Lee una línea de texto mostrando lo que se le proporciona como prompt.  Util para reemplazar las parejas System.out.println() y Scanner.nextLine().  En siguientes apartados veremos como funciona la cadena de formato y los otros parámetros. 
+
+readPassword(). Igual que readLine() pero en pantalla no se ve el texto introducido (no se ve nada). 
+readPassword(String fmt, Object... args). Igual que readLine con parámetros.  El problema con la clase Console es que no se puede usar desde dentro de Eclipse ya que este captura la consola y no está disponible para las aplicaciones.  Si la aplicación se ejecuta desde la línea de comandos si funciona bien. 
+
+
+3.3.- Salida a consola
+A diferencia de la entrada por teclado, la salida por consola sólo tiene dos opciones: Usar System.out (o System.err) directamente, o bien usar el objeto Console.  La opción recomendada es la primera. 
+
+3.3.1.- La case PrintWriter
+Java ofrece, como ya se ha comentado, dos objetos correspondientes a flujos de salida: System.out y System.err.  La diferencia entre ambos es que el primero se supone que debe recibir sólo información que se podría pasar a otra aplicación para ser usada, haciendo una cadena de aplicaciones y el segundo es para mensajes de error o advertencias que deben ir directamente al usuario y no forman parte de la salida "legítima".  En ambos casos estamos hablando de objetos de la clase PrintWriter.  Estos son flujos de salida de caracteres (Writer) que proporcionan métodos de conversión y formateo de la salida (print). 
+Para usar la clase simplemente hay que usar uno de los métodos print, println o printf que admiten datos de todos los tipos soportados por Java.  Tanto print como println intentan convertir el dato que se le proporciona a texto (String).  Como vimos anteriormente, en el caso de los objetos, estos pueden implementar un método toString de la forma: 
+String toString() {
+....
+}
+que devolvería una cadena con la representación de los datos del objeto.  Esta cadena es la que se empleará para crear la salida en print o println.  Si no se proporciona, se mostrará la conversión estándar que devuelve el nombre de la clase seguido de @ y seguida de la referencia al objeto (obviamente no muy útil). 
+Si se desea más personalización de la salida, se ofrecen los métodos format y printf para controlar con más precisión el formato de la salida.  Mas adelante profundizaremos en estos métodos. 
+
+
+
+
+
+3.3.2.- La clase Console
+Usando la clase Console, que vimos en secciones anteriores, disponemos de los métodos format y printf, similares a los de PrintWriter, asi como del método writer, que nos obtiene un PrintWriter similar a System.out, en el cual podemos usar los mismos métodos. 
+
+3.3.3.- Salida formateada: printf y format
+Ya en bloques anteriores introdujimos printf como un método de formatear la salida sin necesidad de emplear unión de cadenas.  En esta sección ampliaremos lo que sabemos sobre printf para añadir más posibilidades de formato. 
+Como recordarás, la definición de printf es: 
+PrintWriter printf(String format, Object... args)
+Como novedad se puede ver que printf devuelve un objeto de la clase PrintWriter.  Concretamente devuelve el mismo objeto sobre el que se ha hecho la llamada.  Esto no tiene utilidad para nosotros que ignoraremos el valor de retorno pero puede emplearse para concatenar llamadas.  Nosotros no empleamos esta forma porque resulta confusa de leer. 
+Después tiene, aparentemente, dos parámetros: 
+
+
+
+
+
+String format. Define la salida mediante una cadena que combina texto fijo con "marcadores" que indican donde se va a colocar un dato extraido del resto de parámetros. 
+Object... args. Esto que parece un parámetro en realidad es una lista de parámetros de longitud variable, todos de tipo Object (que, como ya se sabe, es la clase que puede sustituir a cualquier otra clase de Java porque todas heredan de ella).  En resumen, printf tiene uno o más parámetros: Una cadena de formato (obligatoria) y 0 ó más parámetros que son datos que van a incorporarse dentro de la salida, de cualquier tipo.  Lo que hace printf es analizar la cadena de formato y sustituir cada marcador que encuentre por el parámetro que le corresponda: el primer marcador por el segundo parámetro, el segundo marcador, por el tercer parámetro y así sucesivamente.  Algunos marcadores no se sustituyen por parámetros pero debe haber tantos parámetros adicionales como lo necesiten los marcadores que hay en la cadena de formato.  Es posible no tener ningún parámetro adicional si la cadena de formato no lo necesita.  La definición completa de la cadena de formato está en (en inglés): https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Formatter.html#syntax  Dentro de la cadena de formato disinguimos entre el texto "normal" y los marcadores.  La definición de texto normal es negativa: Texto normal es todo aquello que NO es un marcador.  ¿Y qué es un marcador? Nosotros vimos los marcadores como % y un carácter.  En realidad, un marcador tiene la forma:  %[opciones][ancho][.precision]conversion (todo lo que va entre corchetes es opcional) En la forma más básica un marcador tiene la conocida forma: %conversion lo cual indica una posición en la que va un dato del tipo indicado por conversion Los caracteres que podemos usar son: 
+
+
+
+
+Carácter	Descripción
+b / B	Espera un parámetro de tipo boolean y muestra "true" o "false" dependiendo del valor
+s / S	Espera un parámetro de tipo cadena y la incluye en la salida
+c / C	Espera un parámetro de tipo char y lo incluye en la salida
+h / H	Espera un parámetro de tipo entero y lo muestra en hexadecimal
+d	Espera un parámetro de tipo entero y lo muestra en decimal
+o	Espera un parámetro de tipo entero y lo muestra en octal
+x / X	Espera un parámetro de tipo entero y lo muestra en hexadecimal
+e / E	Espera un parámetro de tipo double y lo muestra en notación científica
+f	Espera un parámetro de tipo double y lo muestra en notación decimal normal 
+g / G	Espera un parámetro de tipo double y lo muestra en notación decimal o científica dependiendo del tamaño 
+%	Muestra el carácter % en la salida 
+n	Incluye un salto de línea (que depende del Sistema Operativo) en la salida 
+
+Las versiones con las letras en mayúsculas muestran la información usando letras mayúsculas. 
+Ejemplo: 
+int numeroEntero = 1356;
+double numeroReal = 1678.23455;
+// Imprimimos true y false
+System.out.printf("Booleanos: %b y %b%n", true, false); 
+// Entero en varias formas
+System.out.printf("Hexadecimal: %h%n", numeroEntero); 
+System.out.printf("Decimal: %d%n", numeroEntero); 
+System.out.printf("Octal: %o%n", numeroEntero); 
+System.out.printf("Hexadecimal2: %x%n", numeroEntero); 
+// Real en varias formas
+System.out.printf("Científica: %e%n", numeroReal); 
+System.out.printf("Decimal: %f%n", numeroReal); 
+System.out.printf("Automática: %g%n", numeroReal); 
+// Mostramos el carácter %
+System.out.printf("Carácter de marcador: %%%n", numeroReal); 
+que genera por consola:
+Booleanos: true y false
+Hexadecimal: 54c
+Decimal: 1356
+Octal: 2514
+Hexadecimal2: 54c
+Científica: 1,678235e+03
+Decimal: 1678,234550
+Automática: 1678,23
+Carácter de marcador: %
+OJO: Si hay algún problema con el formato especificado (porque sea incorrecto o flags incompatibles, por ejemplo) se lanzaría una excepción IllegalFormatException o alguna de sus subclases. 
+Esto es más o menos lo que sabíamos hasta ahora.  En las secciones siguientes vamos a profundizar en los distintos formatos. 
+
+
+
+
+
+3.3.3.1.- Formateo de números enteros
+Para el formateo de los números enteros se emplean los conversores d para decimal, h o x para hexadecimal y o para octal.  Además se pueden utilizar los flags: 
+
+(signo menos). Justifica el contenido a la izquierda.  Si no se emplea se justifica a la derecha, como es lo habitual con números.  Esto sólo tiene sentido si se especifica el ancho (ver más abajo) 
+
+
+(almohadilla). Usa una forma alternativa (esto sólo se aplica para octal y hexadecimal).  Los octales se mostrarán comenzando por 0 y los hexadecimales por 0x 
+
+
+(signo mas). El número se mostrará con signo siempre.  Si no se pone sólo se muestran con signo los negativos. 
+(espacio). El resultado incluirá un espacio en blanco para los valores positivos.  Esto sirve para que los positivos y negativos ocupen el mismo espacio cuando no se emplea el flag +. 
+
+0 (dígito 0). El resultado se mostrará rellenado con ceros por la izquierda.  Esto sólo tiene sentido cuando se especifica el ancho) 
+
+, (coma). El resultado se mostrará con separadores de miles.  Los separadores a usar dependerán del sistema operativo e idioma usado en el mismo.  Después de los flags se puede especificar el ancho como un número entero.  Los números se imprimirán en ese ancho.  Ejemplo:  int valorCorto = 5; int valorMedio = 501; int valorLargo = 50210; int valorCortoNegativo = -5; int valorMedioNegativo = -501;  int valorLargoNegativo = -50210;  // Sin flags y una anchura de 6 System.out.println("Sin flags y anchura 6"); System.out.printf("Corto : %6d%n", valorCorto);  System.out.printf("Medio : %6d%n", valorMedio);  System.out.printf("Largo : %6d%n", valorLargo);  System.out.printf("Negativo Corto: %6d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %6d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %6d%n", valorLargoNegativo);  // Usando el flag - y una anchura de 6 System.out.println("Flag - y anchura 6");  System.out.printf("Corto : %-6d%n", valorCorto);  System.out.printf("Medio : %-6d%n", valorMedio);  System.out.printf("Largo : %-6d%n", valorLargo);  System.out.printf("Negativo Corto: %-6d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %-6d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %-6d%n", valorLargoNegativo);  // Usando el flag + y una anchura de 6 System.out.println("Flag + y anchura 6");  System.out.printf("Corto : %+6d%n", valorCorto);  System.out.printf("Medio : %+6d%n", valorMedio);  System.out.printf("Largo : %+6d%n", valorLargo);  System.out.printf("Negativo Corto: %+6d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %+6d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %+6d%n", valorLargoNegativo);  // Usando el flag espacio y una anchura de 6 System.out.println("Flag espacio y anchura 6");  System.out.printf("Corto : % 6d%n", valorCorto);  System.out.printf("Medio : % 6d%n", valorMedio);  System.out.printf("Largo : % 6d%n", valorLargo);  System.out.printf("Negativo Corto: % 6d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: % 6d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: % 6d%n", valorLargoNegativo);  // Usando el flag 0 y una anchura de 6 System.out.println("Flag 0 y anchura 6");  System.out.printf("Corto : %06d%n", valorCorto);  System.out.printf("Medio : %06d%n", valorMedio);  System.out.printf("Largo : %06d%n", valorLargo);  System.out.printf("Negativo Corto: %06d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %06d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %06d%n", valorLargoNegativo);  // Usando comas y anchura 7 System.out.println("Flag , y anchura 7");  System.out.printf("Corto : %,7d%n", valorCorto);  System.out.printf("Medio : %,7d%n", valorMedio);  System.out.printf("Largo : %,7d%n", valorLargo);  System.out.printf("Negativo Corto: %,7d%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %,7d%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %,7d%n", valorLargoNegativo);  Esto mostraría por pantalla:  Sin flags y anchura 6 Corto : 5 Medio : 501 Largo : 50210 Negativo Corto: -5 Negativo Medio: -501 Negativo Largo: -50210 Flag - y anchura 6 Corto : 5
+Medio : 501
+Largo : 50210 Negativo Corto: -5
+Negativo Medio: -501
+Negativo Largo: -50210 Flag + y anchura 6 Corto : +5 Medio : +501 Largo : +50210 Negativo Corto: -5 Negativo Medio: -501 Negativo Largo: -50210  Flag espacio y anchura 6 Corto : 5 Medio : 501 Largo : 50210 Negativo Corto: -5 Negativo Medio: -501 Negativo Largo: -50210 Flag 0 y anchura 6 Corto : 000005 Medio : 000501 Largo : 050210 Negativo Corto: -00005 Negativo Medio: -00501 Negativo Largo: -50210 Flag , y anchura 7 Corto : 5 Medio : 501 Largo : 50.210 Negativo Corto: -5 Negativo Medio: -501 Negativo Largo: -50.210
+
+
+
+
+3.3.3.2.- Formateo de números reales
+Para el formateo de los números enteros se emplean los conversores f para decimal, e para notación científica y g para elegir automáticamente.  Además se pueden utilizar los flags: 
+
+(signo menos). Justifica el contenido a la izquierda.  Si no se emplea se justifica a la derecha, como es lo habitual con números.  Esto sólo tiene sentido si se especifica el ancho (ver más abajo) 
+
+(almohadilla). El separador decimal se muestra siempre, aunque no sea necesario. 
+
+(signo mas). El número se mostrará con signo siempre.  Si no se pone sólo se muestran con signo los negativos. 
+(espacio). El resultado incluirá un espacio en blanco para los valores positivos.  Esto sirve para que los positivos y negativos ocupen el mismo espacio cuando no se emplea el flag +. 
+
+0 (dígito 0). El resultado se mostrará rellenado con ceros por la izquierda.  Esto sólo tiene sentido cuando se especifica el ancho) 
+
+, (coma). El resultado se mostrará con separadores de miles.  Los separadores a usar dependerán del sistema operativo e idioma usado en el mismo.  Después de los flags se puede especificar el ancho como un número entero.  Los números se imprimirán en ese ancho.  Además se puede expresar la precisión, de forma opcional, separándola del ancho por un punto.  La precisión también es un número entero.  Si la precisión no es especifica su valor por defecto es 6.  En caso de que se imprima un número con menos precisión que la que realmente tiene, el número se redondea.  Ejemplo:  double valorCorto = 5.123456789; double valorMedio = 501.123456789; double valorLargo = 50210.123456789;  double valorCortoNegativo = -5.123456789;  double valorMedioNegativo = -501.123456789;  double valorLargoNegativo = -50210.123456789;  // Sin flags, una anchura de 12 y precisión de 5 System.out.println("Sin flags, anchura 12 y precisión 5");  System.out.printf("Corto : %12.5f%n", valorCorto);  System.out.printf("Medio : %12.5f%n", valorMedio);  System.out.printf("Largo : %12.5f%n", valorLargo);  System.out.printf("Negativo Corto: %12.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %12.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %12.5f%n", valorLargoNegativo);  // Flag -, una anchura de 12 y precisión de 5 System.out.println("Flag -, anchura 12 y precisión 5");  System.out.printf("Corto : %-12.5f%n", valorCorto);  System.out.printf("Medio : %-12.5f%n", valorMedio);  System.out.printf("Largo : %-12.5f%n", valorLargo);  System.out.printf("Negativo Corto: %-12.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %-12.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %-12.5f%n", valorLargoNegativo);  // Flag +, una anchura de 12 y precisión de 5 System.out.println("Flag +, anchura 12 y precisión 5");  System.out.printf("Corto : %+12.5f%n", valorCorto);  System.out.printf("Medio : %+12.5f%n", valorMedio);  System.out.printf("Largo : %+12.5f%n", valorLargo);  System.out.printf("Negativo Corto: %+12.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %+12.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %+12.5f%n", valorLargoNegativo);  // Flag espacio, una anchura de 12 y precisión de 5 System.out.println("Flag espacio, anchura 12 y precisión 5");  System.out.printf("Corto : % 12.5f%n", valorCorto);  System.out.printf("Medio : % 12.5f%n", valorMedio);  System.out.printf("Largo : % 12.5f%n", valorLargo);  System.out.printf("Negativo Corto: % 12.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: % 12.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: % 12.5f%n", valorLargoNegativo);  // Flag 0, una anchura de 12 y precisión de 5 System.out.println("Flag 0, anchura 12 y precisión 5");  System.out.printf("Corto : %012.5f%n", valorCorto);  System.out.printf("Medio : %012.5f%n", valorMedio);  System.out.printf("Largo : %012.5f%n", valorLargo);  System.out.printf("Negativo Corto: %012.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %012.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %012.5f%n", valorLargoNegativo);  // Flag ,, una anchura de 13 y precisión de 5 System.out.println("Flag , , anchura 13 y precisión 5");  System.out.printf("Corto : %,13.5f%n", valorCorto);  System.out.printf("Medio : %,13.5f%n", valorMedio);  System.out.printf("Largo : %,13.5f%n", valorLargo);  System.out.printf("Negativo Corto: %,13.5f%n", valorCortoNegativo);  System.out.printf("Negativo Medio: %,13.5f%n", valorMedioNegativo);  System.out.printf("Negativo Largo: %,13.5f%n", valorLargoNegativo);  Mostraría la siguiente salida:  Sin flags, anchura 12 y precisión 5 Corto : 5,12346 Medio : 501,12346 Largo : 50210,12346 Negativo Corto: -5,12346 Negativo Medio: -501,12346 Negativo Largo: -50210,12346 Flag -, anchura 12 y precisión 5 Corto : 5,12346
+Medio : 501,12346
+Largo : 50210,12346 Negativo Corto: -5,12346
+Negativo Medio: -501,12346
+Negativo Largo: -50210,12346 Flag +, anchura 12 y precisión 5 Corto : +5,12346 Medio : +501,12346 Largo : +50210,12346 Negativo Corto: -5,12346 Negativo Medio: -501,12346 Negativo Largo: -50210,12346 Flag espacio, anchura 12 y precisión 5 Corto : 5,12346 Medio : 501,12346 Largo : 50210,12346 Negativo Corto: -5,12346 Negativo Medio: -501,12346 Negativo Largo: -50210,12346 Flag 0, anchura 12 y precisión 5 Corto : 000005,12346 Medio : 000501,12346 Largo : 050210,12346 Negativo Corto: -00005,12346 Negativo Medio: -00501,12346 Negativo Largo: -50210,12346 Flag , , anchura 13 y precisión 5  Corto : 5,12346 Medio : 501,12346 Largo : 50.210,12346 Negativo Corto: -5,12346 Negativo Medio: -501,12346 Negativo Largo: -50.210,12346
+
+
+
+
+3.3.3.3.- String.format
+El método estático String.format tiene los mismos parámetros que printf pero en lugar de imprimir por consola devuelve una cadena con lo mismo que se imprimiría por consola en printf.  Esta cadena podemos manipularla posteriormente a nuestro gusto e incluso imprimirla si se desea. 
+
+
+4.- Ficheros de datos
+Los ficheros de datos son estructuras en almacenamiento secundario (discos normalmente).  Estas estructuras permiten el almacenamiento de datos con carácter permanente a diferencia de las aplicaciones que hemos visto hasta ahora en las que toda la información permanece en memoria RAM y por tanto se pierde cuando la aplicación acaba.  El uso de ficheros es una de las posibles formas, por tanto de poder almacenar datos de forma permanente.  Hay otras, como las bases de datos, que veremos más adelante. 
+
+
+
+
+4.1.- Registros
+Se llama registro a un grupo de datos simples relacionados entre si y que pertenecen a una misma entidad.  Ejemplos de registro son persona, automóvil o cliente. 
+Los datos simples que componen un registro se conocen con el nombre de campos.  Un campo siempre tiene un tipo, que indica cuales son los valores válidos del mismo.  Además puede tener una longitud, en caso de que no esté ésta implícita en el tipo.  Normalmente los tipos numéricos son de una longitud fija siempre y los de cadena si necesitan que se especifique su longitud máxima. 
+Existen dos tipos de registro: De longitud fija y de longitud variable
+Un registro de longitud fija ocupa siempre la misma longitud, independientemente de los datos contenidos en los campos mientras que un registro de longitud variable, como su nombre indica, tiene una longitud distinta para cada registro, la cual depende principalmente de los valores contenidos en sus campos.  Los registros de longitud fija son más fáciles de gestionar pero los de longitud variable usan de forma más eficiente el espacio. 
+La forma más sencilla de representar un registro en Java es mediante una clase, cuyos atributos sean los campos del registro.  Habitualmente estas clases no tienen comportamiento, exceptuando quizás métodos de acceso (getters y setters).  A estas clases se las denomina JavaBeans o Value Objects. 
+Esto es lo que vamos a utilizar en la discusión de las siguientes secciones: Como escribir y leer Value Objects hacia y desde disco. 
+
+
+
+
+
+4.2.- Apertura y cierre de ficheros
+Para acceder a ficheros, en primer lugar debemos introducir unos conceptos básicos sobre los mismos. 
+
+4.2.1.- Ficheros, rutas y carpetas
+La información se almacena en dispositivos de almacenamiento.  Estos son dispositivos que permiten almacenar información, usualmente de forma permanente de forma que mantienen la información almacenada aún cuando el dispositivo no tenga alimentación eléctrica.  Hay muchos tipos y tecnologías distintas de almacenamiento: Memorias magnéticas, de estado sólido, ópticos, etc. 
+Dentro de un dispositivo de almacenamiento la información se almacena en ficheros.  Un fichero es un bloque de información almacenado en el dispositivo.  Un fichero consta de una secuencia más o menos larga de bytes con la información contenida en el fichero.  Para poder distinguir un fichero de otro, cada uno de ellos tiene un nombre único, llamado el nombre del fichero.  Por lo tanto, cuando una aplicación o usuario quiere acceder a los contenidos de un fichero es necesario conocer de antemano el nombre del mismo. 
+El problema con este esquema de funcionamiento es que rápidamente se degrada mucho.  Esto es asi porque dada su gran capacidad, un dispositivo de almacenamiento es capaz de contener una enorme cantidad de ficheros.  Si todos los ficheros tienen un nombre único, la cantidad de nombres es también enorme y su gestión se vuelve complicada. 
+Para facilitar esta gestión apareció el concepto de carpeta o directorio.  Una carpeta es un tipo especial de fichero que contiene los nombres de otras carpetas o ficheros.  El dispositivo se inicia con una carpeta especial, llamada carpeta raiz, la cual contiene archivos y otras carpetas, que a su vez pueden contener otras carpetas y así formando una estructura en árbol, en la cual la carpeta raíz es el punto de partida, las carpetas son las ramas y los ficheros son las hojas. 
+Esta aparición de las carpetas lleva a varias cuestiones nuevas.  La primera es que ahora ya no es sólo necesario conocer el nombre de un fichero para acceder a él, sino que también es necesario saber el camino que hay que recorrer carpeta a carpeta, para llegar desde la carpeta raíz hasta la carpeta que contiene el fichero.  A esta secuencia de carpetas junto con el nombre de fichero se le conoce como ruta completa del fichero
+La ruta completa del fichero vendría a ser la secuencia de pasos que hay que seguir para llegar desde la carpeta raíz hasta el fichero en cuestión.  El trabajar con rutas completas tiene sus dificultades.  La principal de ellas tiene que ver con la portabilidad.  Cuando una aplicación se mueve de un equipo a otro, la estructura de carpetas de los distintos equipos suele diferir, no digamos ya la de dispositivos de almacenamiento.  Esto provoca que una ruta completa que funciona en un equipo no funcione en otro debido a que la estructura de carpetas es distinta y lo más probable es que el archivo buscado esté localizado en otra ubicación.  En muchos casos no tenemos permisos suficientes para crear las carpetas necesarias para poder colocar el archivo en la ruta original. 
+Debido a este problema, la mayoría de sistemas operativos ofrecen soporte para rutas relativas.  Una ruta relativa es aquella que no comienza por la carpeta raiz de un dispositivo sino por una carpeta propia de la aplicación, llamada carpeta de trabajo o carpeta por defecto de la aplicación.  Cuando se da una ruta relativa se toma como "carpeta raiz" la carpeta de trabajo o carpeta por defecto y se traza la ruta a partir de ahi.  El objetivo es colocar los archivos que necesite una aplicación en un grupo de carpetas organizadas a gusto del programador.  El único requisito es que todas tengan una carpeta antecesora común.  A esta carpeta es a la que se le da el honor de ser la carpeta de trabajo. 
+Una ruta absoluta comienza por el símbolo "/", indicando que comienza por la carpeta raíz, seguido de cero o más carpetas, cada una de ellas separada de la siguiente por el mismo símbolo "/" y terminando con el nombre del fichero.  Ejemplo: 
+/home/lukas/projects/programacion/ejercicio01/PruebaApp.java
+/Users/Jaime/Documents/Unidad02.pdf
+La primera ruta es del archivo PruebaApp.java que está dentro de la carpeta ejercicio01 que está a su vez dentro de la carpeta programacion, que está a su vez dentro de la carpeta projects que está a su vez dentro de la carpeta lukas que está a su vez dentro de la carpeta home que está a su vez dentro de la carpeta raiz.  La segunda ruta es del archivo que podemos localizar entrando en la carpeta Users desde la carpeta raiz, luego entrando en la carpeta Jaime dentro de Users, luego en la Documents dentro de Jaime y ahi localizamos el archivo Unidad02.pdf 
+Respecto a las rutas relativas, se distinguen de las absolutas porque no comienzan por "/" sino directamente con el nombre de una carpeta o archivo.  Si la carpeta de trabajo para programacion fuera /home/lukas/projects/programacion, la primera ruta del ejemplo anterior podría quedar de la manera más simple: 
+ejercicio01/PruebaApp.java
+Y si copiamos el contenido completo de la carpeta programacion a la nueva ruta /var/common/projects/prog, si hacemos que la carpeta de trabajo sea ésta, /var/common/projects/prog, la ruta al archivo seguiría siendo:
+ejercicio01/PruebaApp.java
+Como puedes ver, las rutas por defecto mejoran la portabilidad y por lo tanto son la opción a emplear siempre que sea posible sobre las rutas absolutas, aunque hay situaciones en que el uso de estas últimas es inevitable. 
+En Windows, una ruta puede comenzar por un indicador de dispositivo (Una letra seguida de dos puntos, por ejemplo D:) y además no son sensibles a mayúsculas y/o minúsculas, esto es, la carpeta Nombres y nombres referencian la misma carpeta.  En Unix y sus derivados (Linux, MacOS) sin embargo, los dispositivos se "montan" en carpetas de forma que cuando se entra en la carpeta en la que está montado el dispositivo se comienzan a acceder a los ficheros contenidos en el mismo.  La carpeta de montaje se correspondería con la carpeta raiz del dispositivo.  De esta forma no hay que emplear nombres de dispositivo como en Windows y se pude colocar un dispositivo en cualquier parte del árbol de carpetas.  Un dispositivo es elegido de forma especial como dispositivo raiz y es el que se corresponde con la carpeta raiz y sus subcarpetas, exceptuando las que actúan como puntos de montaje.  Windows también puede hacer esto pero se emplea poco.  Al contrario que en Windows, los nombres de carpeta y fichero son sensibles a mayúsculas, por lo que nombre y Nombre son carpetas distintas. 
+Hay que tener en cuenta estos detalles a la hora de crear aplicaciones que sean portables entre plataformas y sistemas operativos, ya que Java permite una fácil portabilidad. 
+
+
+
+
+
+4.2.2.- Modos de acceso
+Un fichero se puede abrir en varios estados o modos.  El primer modo es el que indica la posibilidad de leer / escribir datos o ambos.  Un fichero se puede abrir en modo lectura (sólo para leer pero no para modificarlo), en modo escritura (sólo para modificarlo) o en ambos (se puede leer y escribir en el fichero).  Usualmente se emplea sólo uno de los dos modos y es lo que vamos a hacer nosotros pero aplicaciones más sofisticadas pueden emplear el modo lectura / escritura. 
+Otra opción o modo al abrir un fichero es si se abre para creación o para adición.  En el caso de abrir un archivo para creación, el archivo se crea nuevo, si no existe ya, o se elimina todo el contenido previo, si ya existía.  En cualquier caso se parte de un archivo vacío, existiera el mismo o no previamente.  En el caso de abrir para adición, el contenido previo del archivo se mantiene, si es que el archivo existe previamente, y se añade contenido al final del mismo, tras el contenido previo. 
+
+
+
+
+
+4.3.- Escritura y lectura de información en ficheros
+En esta sección vamos a ver algunos métodos para almacenar información en, y leerla desde, ficheros.  Dado que existen infinidad de técnicas para almacenar registros en ficheros sólo vamos a ver un par de formas de hacerlo.  Se deja al lector la posibilidad de investigar nuevas formas. 
+
+
+
+4.3.1.- Leer ficheros de texto
+Para leer ficheros de texto hay que emplear la clase básica FileReader.  A esta clase se le proporciona la ruta al fichero en el constructor y ya tenemos un flujo de texto proveniente (lectura) del fichero.  Ejemplo: 
+FileReader reader = new FileReader("Mifichero.txt");
+EL problema con FileReader es que su lectura está limitada a un carácter por vez (o más si empleamos arrays, que no sabemos usar), con lo cual está bastante limitada.  Aún asi es usable, aunque con mucha codificación. 
+FileReader lanza una excepción del tipo FileNotFoundException si no se puede localizar el fichero cuya ruta se le ha proporcionado.  Esta excepción es subclase de IOException, la excepción principal del paquete java.io 
+Una clase más útil es BufferedReader, que ya hemos utilizado.  Esta toma un Reader ya existente como fuente de caracteres y permite leer lineas enteras de texto.  BufferedReader se encarga de coleccionar los caracteres suficientes para formar cada línea sin necesidad de que nosotros nos tengamos que preocupar por esto.  El metodo a emplear es readLine, que tiene la siguiente cabecera: 
+public String readLine() throws IOException
+readLine intenta leer una línea de texto desde el flujo de caracteres original y devuelve, o bien la línea, o bien null si se ha llegado al final del flujo (del fichero en nuestro caso).  readLine lanza una excepción de tipo IOException si ocurre algún problema con el acceso al almacenamiento (se desconecta el dispositivo, por ejemplo) 
+Cuando ya no se vaya a trabajar más con el flujo hay que cerrarlo usando close.  Si el flujo no está abierto se lanza una excepción IOException. 
+Ya que hay que cerrar siempre el flujo después de usarlo pero al mismo tiempo hay que estar atentos a las excepciones, podemos utilizar una característica de las excepciones de Java que no hemos introducido hasta ahora: try con recursos.  En un try con recursos se coloca entre paréntesis, justo después de la palabra try las instrucciones que crean los recursos que se deben cerrar.  Java asegura que estos recursos se cerraran siempre se salga por una excepción o porque se termina el proceso dentro del bloque.  En nuestro caso abriremos los flujos dentro del try con recursos y asi nos garantizamos su cierre. 
+Por lo tanto, la técnica básica para leer líneas de un archivo de texto se ejemplifica en el siguiente código: 
+// Cambiar por la ruta al fichero
+String rutaFichero = "prueba.txt"; 
+// Abrimos el flujo de forma que se cierre automáticamente
+// Lo que se ve a continuación es una sola linea
+try (BufferedReader flujoEntrada = new BufferedReader(new FileReader(rutaFichero))) { 
+// Mientras haya líneas
+String linea = null; 
+do {
+// Intenta leer la siguiente línea
+linea = flujoEntrada.readLine(); 
+// Si se pudo leer una línea
+if (linea != null) { 
+// Haz lo que sea con ella
+}
+} while (linea != null); 
+// No hace falta cerrar el flujo aqui porque se cierra automáticamente 
+} catch (FileNotFoundException e) { 
+// Hacer algo si no se encuentra el fichero
+} catch (IOException e) {
+// Hacer algo si no se puede leer desde el fichero 
+}
+Primero abrimos el flujo usando un BufferedReader (que lee líneas) basado en un FileReader, que es el que realmente lee desde el disco.  Esta apertura puede lanzar una excepción FileNotFoundException si el archivo no se localiza.  La apertura se hace desde dentro de un try con recursos de forma que los flujos se cierren automáticamente al terminar, sin importar como se termine. 
+A continuación hacemos un ciclo do..while en el que vamos leyendo las líneas del archivo una a una.  Para ello se emplea un objeto String (linea) en el que se va a ir almacenando en cada vuelta la línea leída.  Primero se intenta leer la línea.  Una vez intentada la lectura, hay que determinar si realmente se ha leido o no.  Para ello se comprueba si vale o no null.  Si vale null, hemos llegado al final del archivo y ya podemos salir del ciclo.  Si no vale null hemos leido una línea de texto y procedemos a procesarla (en el ejemplo no hacemos nada más que poner un comentario).  Una vez finalizado el ciclo ya hemos terminado. 
+La cosa se complica un poco debido a la aparición de diversas excepciones que pueden producirse a lo largo de todo el proceso: FileNotFoundException si el fichero no se localiza o IOException si no se puede leer desde el fichero.  Para tratar estas excepciones encerramos todo en un bloque try..catch con recursos con dos catch: Uno para FileNotFoundException, que debe ir el primero, ya que hereda de IOException y otro para IOException.  Si no vamos a hacer nada especial en el caso de que no se encuentre el archivo podemos ahorrarnos el catch correspondiente y dejar sólo el de IOException. 
+Para tratar las líneas, ya que las tenemos en una cadena, podemos usar todos los medios que String pone a nuestra disposición para procesarlas. 
+
+
+
+
+
+4.3.2.- Escribir ficheros de texto
+Para escribir en ficheros de texto se usa la clase FileWriter.  Esta clase representa un flujo de caracteres de salida hacia un fichero.  Tenemos dos constructores que podemos usar: 
+public FileWriter(String fileName) throws IOException
+o
+public FileWriter(String fileName, boolean append) throws IOException
+En ambos casos se proporciona la ruta al fichero donde se va a escribir como primer parámetro pero en el segundo caso se proporciona otro parámetro booleano adicional (append) que indica si lo pasamos a true que vamos a añadir al archivo o a false que vamos a comenzar con un fichero vacío.  La primera versión siempre comienza con un fichero vacío. 
+En este caso, a diferencia de lo que ocurre con FileReader, el fichero puede que no exista previamente a la llamada.  En ese caso el archivo se debería crear.  Y he dicho debería porque puede haber varias circunstancias que impidan que se pueda crear el fichero: 
+
+
+
+
+
+Hay un directorio con el mismo nombre que el fichero que se pretende crear.  Dado que no puede haber en una carpeta dos entradas con el mismo nombre y la carpeta no se puede reemplazar por un fichero, la operación no puede seguir adelante. 
+No puede crearse el archivo. Puede que no se disponga de permisos suficientes para crear un fichero o escribir en el mismo.  En este caso tampoco se puede seguir adelante. 
+
+Otros errores. Otros errores más raros como que se ha desconectado el dispositivo, hay una parada en curso, etc., que impide la creación del fichero.  En todos estos casos se produciría una excepción del tipo IOException.  A continuación, y de la misma manera que pasa con FileReader, la clase FileWriter está bastante limitada en lo que puede enviar al fichero (caracteres de uno en uno.  No puede enviar siquiera una cadena).  Es por eso, que, también de forma similar a FileReader, se suele unir el objeto FileWriter a otro Writer que proporcione más funcionalidad a la hora de generar la salida hacia el fichero.  En nuestro caso vamos a emplear PrintWriter ya que ofrece mucha funcionalidad mediante print, println y printf para generar salida en distintos formatos.  Por último hay que emplear close para cerrar el flujo.  Ya que vamos a emplear un bloque try..catch para procesar los posibles errores aprovechamos y empleamos un try con recusos para que se cierre automáticamente.  La escritura en un fichero de texto se realizaría con un código similar a éste:  // Ruta al fichero String rutaFichero = "miFichero.txt";  // ¿Vamos a añadir (true) o a comenzar desde vacío (false)? boolean anyadir = false;  // Creamos el flujo de salida try (PrintWriter flujoSalida = new PrintWriter(new FileWriter(rutaFichero, anyadir))){  // Sacamos al fichero lo que queramos // En este caso los números del 0 al 99, uno por línea for (int i = 0; i < 100; i++) { flujoSalida.printf("%d%n", i);  } // El flujo se cierra automáticamente  } catch (IOException e) {  // Ocurrio error al crear el archivo } Como se puede ver, la escritura es más sencilla que la lectura debido a que hay menos cosas que pueden salir mal
+
+
+
+
+Creamos el flujo de salida combinando a un PrintWriter (que proporciona el formateo) un FileWriter (que proporciona la escritura en el fichero).  Esto puede producir una excepción, que es la que se pilla en el try..catch. 
+A continuación empleamos los métodos de PrintWriter para escribir en el fichero de una forma similar a como los hemos usado para imprimir por pantalla.  La única diferencia en este caso es que la salida no se muestra por consola sino que se almacena en el fichero.  Una vez terminado salimos y el flujo se cierra automáticamente. 
+
+
+
+
+
+4.3.3.- Leer ficheros binarios
+En el caso de ficheros binarios leemos los bytes que componen el fichero y que, recordemos, forman la unidad básica de almacenamiento de datos en un fichero.  En este caso empleamos FileInputStream para acceder al fichero.  La diferencia con los archivos de texto es que con esta clase nos basta para nuestras necesidades y no necesitamos componerla con otras. 
+FileInputStream, al igual que FileReader, lanza una excepción FileNotFoundException si no se puede encontrar el fichero o no puede abrirlo por cualquier razón. 
+Una vez abierta usamos el método read para leer el siguiente byte desde el flujo.  Este método devuelve un entero (int) en lugar de byte aunque los valores sólo pueden ser de 0 a 255.  Si se llega al final del flujo devuelve -1, que no es un valor de byte válido y no puede confundirse con ellos. 
+Por último se cierra el flujo de forma automática, como en el caso de los archivos de texto. 
+A continuación tenemos un ejemplo básico de como leer un archivo binario.  Nótese que es muy similar al caso de los ficheros de texto excepto en unos pequeños detalles. 
+// Cambiar por la ruta al fichero
+String rutaFichero = "prueba.bin"; 
+// Abrimos flujo de entrada de bytes desde el fichero
+try (FileInputStream flujoEntrada = new FileInputStream(rutaFichero)) { 
+// Mientras haya bytes
+int leido = -1; 
+do {
+// Intenta leer el siguiente byte
+leido = flujoEntrada.read(); 
+// Si se pudo leer el byte
+if (leido != -1) { 
+// Haz lo que sea con él
+}
+// El flujo se cierra solo
+} while (leido != -1); 
+} catch (FileNotFoundException e) { 
+// Hacer algo si no se encuentra el fichero
+} catch (IOException e) { 
+// Hacer algo si no se puede leer desde el fichero
+}
+Como puedes ver es muy similar a la lectura de ficheros de texto.  Primero se abre el flujo de entrada mediante FileInputStream Esto puede provocar los mismos problemas que en el caso de los archivos de texto.  A continuación empleamos un entero, no una cadena, para leer los bytes desde el fichero.  Si lo que se lee es -1 hemos llegado al fin del fichero.  Si no lo es, es un dato y hacemos algo con ello. 
+Se procesan las mismas excepciones y por las mismas razones.  Asimismo el finally es identico al caso de los ficheros de texto. 
+
+
+
+
+
+4.3.4.- Escritura de ficheros binarios
+La escritura de ficheros binarios es bastante similar (aunque algo más simple) que la de los ficheros de texto.  Emplearemos FileOutputStream para enviar bytes a un fichero.
+Usaremos uno de dos constructores de FileOutputStream:
+public FileOutputStream(String name) throws FileNotFoundException
+o
+public FileOutputStream(String name, boolean append) throws FileNotFoundException
+Al igual que con los ficheros de texto, pasamos el nombre y un booleano que indica si se añade o no.  También al igual que con los ficheros de texto, si no se proporciona booleano se comienza con un archivo vacío. 
+Para escribir usamos el método write. al que le pasamos el byte que se escribe.  Dado que el parámetro es un entero, teóricamente se podría pasar un valor mayor de un byte.  Lo que hace el método es que ignora los 24 bits más significativos del entero y envía sólo los 8 menos significativos, enviando efectivamente un byte.  Por esta razón hay que tener cuidado cuando se proporcionen valores negativos o positivos fuera del rango 0-255 ya que lo que se escriba no se corresponderá de forma evidente con el parámetro proporcionado. 
+El código estándar para escribir en un fichero binario sería: 
+// Ruta al fichero
+String rutaFichero = "miFichero.bin"; 
+// ¿Vamos a añadir (true) o a comenzar desde vacío (false)?
+boolean anyadir = false; 
+// Creamos el flujo de salida
+try (FileOutputStream flujoSalida = new FileOutputStream(rutaFichero, anyadir)){ 
+// Sacamos al fichero lo que queramos 
+// En este caso los números del 0 al 99, uno en cada byte
+for (int i = 0; i < 100; i++) {
+flujoSalida.write(i); 
+}
+} catch (IOException e) { 
+// Ocurrio error al crear el archivo
+}
+
+
+
+
+
+4.3.5.- Lectura de Objetos de Valor
+En esta sección vamos a ver como podemos leer objetos de valor (Value Objects).  Los objetos de valor o Value Objects (VO), son clases que sólo tienen atributos de tipo primitivo (int, double, etc.) y cadenas (String) y no disponen de comportamientos (métodos).  Se emplean para almacenar registros, esto es, un conjunto de datos relacionados que se lee desde una tabla o fuente de datos o se envía a una base de datos o destino de datos. 
+A la hora de leer VOs desde un fichero hay que tener en cuenta las siguientes consideraciones: 
+
+
+
+Es responsabilidad del programador el leer los atributos del VO en el mismo orden en que se almacenaron en el archivo.  Si esto no se hace correctamente lo que se leerá será incorrecto y se puede producir corrupción de datos. 
+
+Es necesario utilizar el método adecuado para leer cada atributo.  Si se utiliza un método no apropiado pueden producirse errores y corrupción de datos.  Para leer los datos se emplea la clase DataInputStream. Esta clase permite leer tipos primitivos (y cadenas) desde un flujo de bytes.  El problema es que no accede directamente a un fichero sino que emplea un flujo de bytes que debemos proporcionarle.  Como queremos leer los datos de un fichero, emplearemos un FileInputStream que pasaremos al objeto de la clase DataInputStream.  DataInputStream proporciona métodos para leer los tipos primitivos y cadenas.  Por ejemplo, proporciona el método readInt para leer un entero (32 bits) o readDouble para leer un real.  Para leer cadenas hay que emplear el método readUTF (no existe readString).  El problema con DataInputStream es que no hay una forma limpia de saber si se ha llegado al final del fichero o no.  Se puede probar a leer un atributo y si se puede seguir pero es un poco cutre.  Lo que se hace en la práctica es que se almacena al inicio del fichero un número entero (o largo, dependiendo del tamaño) que indica el número de objetos que contiene el fichero.  Primero se lee este número y después se leen los objetos en sucesión.  Por supuesto, al terminar hay que cerrar el flujo. Las excepciones que se pueden producir son las usuales hasta ahora y una nueva, EOFException, que se lanza si se llega al final del fichero mientras no se ha terminado de leer un dato concreto.  Esto normalmente indica que la lectura no se ha hecho correctamente o no se está siguiendo el mismo orden en que se escribieron los datos.  Dado que EOFException hereda de IOException, el código que teníamos podría seguir usándose (a fin de cuentas es un error de lectura).  Supongamos que tenemos la clase Usuario con los atributos:  private String nombre; private int edad; private double peso; private int hijos;  private boolean casado;  Usuario además dispone de getters y setters para todos sus atributos.  El código que lee Usuarios desde un fichero sería:  // Cambiar por la ruta al fichero String rutaFichero = "miFichero.obj";  // Abrimos flujo de entrada de objetos desde el fichero try (DataInputStream flujoEntrada = new DataInputStream(new FileInputStream(rutaFichero))){  // Leemos el número de objetos almacenados que es el primer entero del fichero int numObjetos = flujoEntrada.readInt();  // Mientras haya objetos for (int i = 0; i < numObjetos; i++) {  // Intenta leer el siguiente Usuario Usuario usuario = new Usuario();  usuario.setNombre(flujoEntrada.readUTF());  usuario.setEdad(flujoEntrada.readInt());  usuario.setPeso(flujoEntrada.readDouble());  usuario.setHijos(flujoEntrada.readInt());  usuario.setCasado(flujoEntrada.readBoolean());  // Haz lo que sea con él } } catch (FileNotFoundException e) {  // Hacer algo si no se encuentra el fichero } catch (IOException e) {  // Hacer algo si no se puede leer desde el fichero }
+
+
+
+
+4.3.6.- Escritura de Objetos de Valor
+La escritura de VOs se hace de forma simétrica a la lectura
+Se emplea la clase DataOutputStream para almacenar los datos.  Hay que emplear un FileOutputStream para crear un flujo hacia el fichero. 
+Para escribir los atributos hay que emplear los métodos writeXXX para escribirlos, empleando el método adecuado al tipo del objeto.  Es importante emplear un orden conocido que después se empleará para leer los datos. 
+Asimismo se suele almacenar un número entero o largo al inicio del fichero para indicar el número de objetos almacenados en el mismo.  Esto se empleará a la hora de leer para poder determinar la cantidad de objetos almacenados en el fichero. 
+Por supuesto hay que cerrar el fichero usando close. 
+// Ruta al fichero
+String rutaFichero = "miFichero.obj"; 
+// Creamos el flujo de salida
+// Siempre creamos, nunca añadimos
+try (DataOutputStream flujoSalida = new DataOutputStream(new FileOutputStream(rutaFichero))){ 
+// Sacamos el número de objetos (2 en este ejemplo)
+flujoSalida.writeInt(2); 
+// Creamos los objetos
+Usuario usuario = new Usuario();
+usuario.setNombre("Paco");
+usuario.setEdad(25);
+usuario.setPeso(76.5);
+usuario.setHijos(2);
+usuario.setCasado(true);
+Usuario usuario2 = new Usuario();
+usuario2.setNombre("Paqui"); 
+usuario2.setEdad(52); 
+usuario2.setPeso(63.2); 
+usuario2.setHijos(0); 
+usuario2.setCasado(false); 
+// Guardamos los objetos
+flujoSalida.writeUTF(usuario.getNombre());
+flujoSalida.writeInt(usuario.getEdad());
+flujoSalida.writeDouble(usuario.getPeso());
+flujoSalida.writeInt(usuario.getHijos());
+flujoSalida.writeBoolean(usuario.isCasado());
+flujoSalida.writeUTF(usuario2.getNombre());
+flujoSalida.writeInt(usuario2.getEdad());
+flujoSalida.writeDouble(usuario2.getPeso());
+flujoSalida.writeInt(usuario2.getHijos());
+flujoSalida.writeBoolean(usuario2.isCasado()); 
+} catch (IOException e) { 
+// Ocurrio error al crear el archivo
+}
+
+
+
+
+
+5.- Utilización de los sistemas de ficheros
+En esta sección veremos los ficheros, no ya desde un punto de vista de como trabajar con su contenido, sino desde el punto de vista de los ficheros completos.  Aprenderemos a crear carpetas, eliminar carpetas y ficheros y a copiar y mover ficheros. 
+
+
+5.1.- Gestión de rutas
+Para trabajar con rutas de una forma flexible y potente vamos a usar el interfaz java.nio.Path
+Este interfaz permite crear y manipular rutas de una forma muy potente a la vez que sencilla.  Un objeto que implementa Path encapsula una ruta a un archivo o carpeta. 
+Dado que Path es un interface, no podemos crear objetos directamente usando new (sólo podemos crear objetos de clases, no de interfaces)
+Para obtener un objeto Path a partir de una ruta en cadenas (String) podemos emplear el mensaje of que tiene la forma: 
+Path of(String primero, String... mas)
+Este método recibe una o más partes de una ruta y las une para formar una ruta completa.  El segundo parámetro y los siguientes son opcionales pero el primero es obligatorio.  Por lo tanto hay que proporcionar, al menos, una parte de la ruta.  Ejemplo: 
+Path.of ("fichero.txt")
+Devuelve una ruta al fichero llamado fichero.txt que está en la carpeta de trabajo
+Path.of ("ficheros", "fichero.txt")
+Devuelve una ruta al fichero llamado fichero.txt que está dentro de la carpeta ficheros que está dentro de la carpeta de trabajo.  Sería equivalente a: 
+Path.of("ficheros/fichero.txt")
+Una vez que tenemos un objeto Path podemos emplear los métodos de este interfaz para manipularlo.  Entre otros, los siguientes mensajes son interesantes: 
+
+
+
+
+
+getFileName(). Obtiene el nombre del fichero o carpeta al que lleva la ruta. 
+getName(int indice). Obtiene la parte indice de la ruta.  0 es la parte más a la izquierda de la ruta y asi hacia la derecha.  Para saber el número de partes que hay hay que usar: 
+
+getNameCount(). Obtiene el número de partes que tiene la ruta. 
+getParent(). Obtiene la ruta a la carpeta padre de aquella referenciada por la ruta. 
+isAbsolute(). Obtiene si la ruta es absoluta (true) o relativa (false) 
+resolve(String ruta)
+resolve(Path ruta). Añade a la ruta a la que se envía el mensaje la ruta que se pasa como parámetro 
+toString(). Devuelve una cadena con la ruta. 
+5.2.- Creación y eliminación de ficheros y directorios
+En esta sección veremos como realizar creaciones y borrados de carpetas o ficheros. 
+Para realizar estas operaciones emplearemos métodos de la clase Files.  Esta es una clase que no se puede instanciar (no tiene constructor) y sólo ofrece métodos estáticos. 
+Todos los métodos pueden lanzar IOException en caso de problemas con el dispositivo o permisos.  Además se puede lanzar ésta y otras excepciones en otros casos adicionales, que comentaremos en cada caso. 
+
+
+
+
+
+5.2.1.- Crear carpetas
+Para crear una carpeta hay dos métodos. El primero es:
+createDirectory(Path ruta) throws IOException
+Crea un nuevo directorio en la ruta dada.  Las carpetas de la ruta ya deben existir previamente y sólo se crea la última (la más a la derecha).  Si no existe alguna carpeta de la ruta o no se puede crear la última se lanza IOException 
+Si ya existe la carpeta se lanzará FileAlreadyExistsException
+El otro método es:
+createDirectories(Path ruta) throws IOException
+En este caso crea todas las carpetas de la ruta que no existan previamente, incluyendo, por supuesto, la última.  Si la ruta apunta a un fichero (no carpeta) ya existente, se producirá la excepción FileAlreadyExistsException 
+
+
+
+5.2.2.- Crear ficheros
+Para crear ficheros se emplea:
+createFile(Path ruta) throws IOException
+Crea el fichero regular (no carpeta) vacío indicado por la ruta.  Las carpetas de la ruta ya deben estar previamente creadas o se lanzará IOException.  Si el fichero ya existe (incluso si es una carpeta) se lanzaría FileAlreadyExistsException 
+
+
+5.2.3.- Eliminar ficheros y carpetas
+Para eliminar ficheros y carpetas se emplea el mismo mensaje:
+delete(Path ruta) throws IOException
+Elimina el archivo o carpeta indicado por la ruta.  En caso de que sea una carpeta, ésta debe estar vacía o se lanzará DirectoryNotEmptyException.  Si no hay fichero o carpeta en esa ruta se lanzará NoSuchFileException 
+En caso de que no estemos seguros si el fichero existe o no pero queremos asegurarnos de que se elimine exista o no sin preocuparnos por excepciones podríamos usar:
+deleteIfExists(Path ruta) throws IOException
+que funciona como el anterior pero no lanzará nunca NoSuchFileException
+
+
+5.3.- Copia de ficheros
+Para copiar ficheros (y sólo ficheros) se usa:
+copy(Path origen, Path destino) throws IOException
+Que copia el fichero apuntado por la ruta origen a la ruta destino.  El fichero original no sufre ningún cambio o modificación.
+Si ya existe un fichero en el destino con el mismo nombre se producirá la excepción FileAlreadyExistsException
+También se puede mover, eliminando el fichero origen, usando:
+move(Path origen, Path destino) throws IOException
+Si las rutas origen y destino están en la misma carpeta se produce un renombrado del archivo, en lugar de un movimiento. 
+
+
+5.4.- Información sobre ficheros o carpetas
+Los siguientes métodos se emplean para obtener información sobre ficheros o carpetas.  Ninguno afecta a los ficheros o carpeta "interrogados" 
+
+boolean exists(Path ruta). Devueve true si hay algo (fichero o carpeta) en la ruta indicada o false en caso contrario. 
+boolean notExists(Path ruta). Justo el opuesto del anterior. 
+boolean isDirectory(Path ruta). Devuelve true si lo que hay en la ruta existe y es una carpeta.  false en caso contrario. 
+boolean isRegularFile(Path ruta). Devuelve true si lo que hay en la ruta existe y es un archivo regular (no una carpeta).  false en cualquier otro caso. 
+long size(Path ruta). Obtiene la longitud (en bytes) del archivo.  Si la ruta apunta a una carpeta la longitud devuelta depende del sistema en que se ejecute. 
+6.- Interfaces Gráficos de Usuario
+Hasta el momento hemos realizado aplicaciones cuyo interfaz emplea el anticuado método de la línea de comandos.  La información se muestra en una consola de texto y texto es lo que introduce el usuario mediante teclado para proporcionar información al programa.  Aunque este método funciona y hasta ahora hemos podido hacer programas con él, el método es poco intuitivo y aprovecha poco el espacio en pantalla. 
+Para mejorar la interacción con el usuario se desarrollaron los interfaces gráficos de usuario (GUIs - Graphical User Interface).  Estos interfaces emplean gráficos (en color o no) para mostrar la información en pantalla en distintas partes de un área empleada por la aplicación, llamada ventana).  Además existen zonas de la pantalla con las que el usuario puede interactuar para introducir información de una forma alternativa a la textual (que también suele estar disponible). 
+Nosotros sólo vamos a introducir los conceptos y realizar interfaces de usuario sencillo ya que esto se ampliará en segundo curso en otras materias especialmente dedicadas a ello. 
+A fin de facilitar la descripción de esta parte y dado su gran contenido visual y procedimental se ha elegido proporcionar el resto de este capítulo en forma de video-lecciones
