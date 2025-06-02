@@ -1,0 +1,519 @@
+
+Estructuras de almacenamiento 
+
+1.- Introducción. 
+Hasta este momento sólo hemos utilizado variables para almacenar datos.  Aunque esto tiene su utilidad, en muchas ocasiones es necesario no almacenar datos "sueltos", sino conjuntos de datos.  Por ejemplo, un programa no tendrá un Usuario o un Cliente, sino muchos Usuarios y muchos Clientes.  Por lo tanto se hace necesario el disponer de mecanismos que permitan almacenar no datos u objetos dispersos sino conjuntos de ellos.  Para esta misión existen lo que se denominan estructuras de información o estructuras de almacenamiento, que son estructuras que, como su nombre indica, permiten almacenar un conjunto de datos.  Hay muchos tipos de estructuras debido a que hay muchas necesidades operativas distintas.  Cada una de las estructuras presenta una serie de ventajas y una serie de inconvenientes y es labor del programador el balancear estas ventajas e inconvenientes y elegir la estructura más apropiada para la tarea a realizar.  En este tema veremos algunas de las estructuras existentes, sus ventajas e inconvenientes, y la forma de usarlas. 
+
+
+2.- Arrays. 
+Los arrays son la estructura de almacenamiento más básica, aunque ofrece funcionalidad suficiente para muchas tareas.  Sin embargo pecan de poco flexibles. 
+Un array es una estructura de datos que puede almacenar un conjunto de datos (cero, uno o mas datos) del mismo tipo.  Podemos ver, en cierto modo, a un array como un conjunto de variables de un mismo tipo colocadas bajo un mismo nombre. 
+
+
+2.1.- Declaración y creación de arrays. 
+Un array se declara de la siguiente forma: 
+tipo[] nombre; 
+donde tipo es el tipo de todos los elementos del array y nombre es el nombre del array.  Nótense los paréntesis cuadrados que indican que lo que se está declarando es un array.  Si no se indican se está declarando una variable simple del tipo determinado, no un array.  Esto declara una variable que referencia a un array pero no le asigna espacio para almacenar los datos.  Si se consulta el valor de la variable justo después de la declaración, la misma vale null. 
+Como puedes ver, los arrays funcionan, en cierto modo, como los objetos respecto a la gestión del espacio de almacenamiento.  Al igual que una variable de objeto no reserva el espacio sino que contiene una referencia al objeto real, las de array tampoco reservan el espacio sino que también contienen una referencia, en este caso al array.  Esto implica que, al igual que cuando teníamos dos variables de objeto al asignar el valor de una a otra sólo se copiaba la referencia y las dos apuntaban al mismo objeto, lo mismo ocurre con los arrays. 
+Para reservar el espacio de almacenamiento para el array hay que utilizar, al igual que para los objetos, la instrucción new, de la forma: 
+nombre = new tipo [cantidad]; 
+donde nombre es el nombre de una variable array del tipo adecuado, tipo es el tipo de los elementos del array y cantidad es la cantidad de elementos que va a almacenar el array.  Por ejemplo: 
+calificaciones = new double[10]; 
+Reserva espacio para un nuevo array de 10 elementos de tipo double y almacena la referencia a este espacio en la variable calificaciones, que debe haber sido declarada de tipo double[]. 
+Es bastante usual hacer las dos cosas al mismo tiempo, declarar la variable para el array y reservar el espacio, haciendo: 
+tipo[] nombre = new tipo [cantidad]; 
+como por ejemplo: 
+double[] calificaciones = new double[10]; 
+que crea la variable para almacenar la referencia al array y reserva el espacio en la misma línea.  Cuando empleemos new para reservar espacio para arrays, los nuevos elementos contenidos en este espacio se inicializan a los valores por defecto especificados por Java: los números se inicializan a cero, las referencias a null, los char al caracter nulo y los booleanos a false. 
+Es posible, sin embargo, reservar espacio para un array e inicializar los valores del mismo con otros valores, usando la siguiente sintaxis: 
+variable = {valor1, valor2, ...}; 
+En este caso se reserva el espacio para el array con un tamaño igual al número de elementos entre llaves (Java los cuenta por nosotros) y a cada elemento se le asigna inicialmente el valor que le corresponde por su posición en la lista de valores.  Ejemplo: 
+int[] edades = {25, 30, 45}; 
+Reserva espacio para un array de tres elementos (el primero contiene inicialmente 25, el segundo 30 y el tercero 45) y asigna la referencia al mismo a la variable edades. 
+Por último, es posible, aunque normalmente no es muy útil tener un array de cero elementos, haciendo: 
+variable = new tipo[0]; 
+o también 
+variable = {}; 
+En este caso el array existe, es decir, no es null, pero no contiene ningún elemento.  Esto es útil en algunas circunstancias en las que se permite que un conjunto de datos pueda estar vacío. 
+
+
+
+
+
+2.2.- Uso de arrays. 
+Una vez declarado y reservado, un array ya puede usarse.  Como ya se ha comentado los valores de los elementos pueden haber sido inicializados a valores concretos (usando las llaves) o a los valores por defecto de java (usando new).  Cada elemento de un array se trata como si fuera una variable simple cuyo tipo es el tipo del array.  Por lo tanto puede leerse de ella, empleándola en una expresión o puede escribir en ella asignándole un valor.  Para acceder a un elemento de un array se usa la sintaxis: 
+array[indice] 
+donde array es una variable con una referencia a un array e indice es un número entero positivo.  El número índice es el que indica a cual de los elementos del array estamos accediendo: Valdrá 0 para el primer elemento, 1 para el segundo y así sucesivamente.  Si se utiliza un índice que no se corresponde con la posición de un elemento real del array se producirá una excepción no chequeada de tipo java.lang.ArrayIndexOutOfBoundsException. 
+Es posible obtener en cualquier momento el número de elementos de un array empleando la expresión: 
+array.length 
+donde array debe ser una referencia a un array. 
+Por lo tanto el rango de índices válidos para un array cualquiera es de 0 hasta array.length - 1. 
+Ejemplo: 
+
+
+
+
+
+Java
+
+int[] numeros = {10, 20, 30, 40};
+System.out.println("El valor de la última posición del array es: " + numeros[3] + ".");
+numeros[3] = 4000;
+System.out.println("El valor de la última posición del array es: " + numeros[3] + ".");
+``` [cite: 32]
+Debería imprimir por pantalla primero el valor 40 y después 4000. [cite: 32]
+Por supuesto, los arrays también pueden pasarse como parámetros a métodos. [cite: 33] En este caso lo que se pasa es la referencia al array, al igual que ocurre con las referencias a objetos. [cite: 33] También pueden ser valores devueltos por métodos. [cite: 34] En este caso también se devuelve la referencia al array. [cite: 34] La única diferencia respecto a los parámetros que ya hemos visto es que hay que indicar que son arrays empleando los corchetes, de la misma forma que se emplean en la declaración de las variables "normales". [cite: 35] Los arrays también se pueden pasar como parámetros a métodos o devolver como valores de retorno de los mismos. [cite: 36] Por ejemplo, si queremos definir un método `calculaMedia` que recibe un array de reales llamado `datos`, deberíamos hacer: [cite: 37]
+`public double calculaMedia (double[] datos)` [cite: 37]
+Si queremos devolver un array de cadenas desde un método llamado `dividePalabras`, que toma una cadena como parámetro de entrada, haríamos: [cite: 37]
+`public String[] dividePalabras (String cadena)` [cite: 37]
+Hay que tener en cuenta un aspecto muy importante: Cuando tenemos un array cuyos elementos son de tipo objeto y no primitivo, lo que se almacena en cada elemento del array es una referencia al objeto, no una copia del objeto. [cite: 38] Si ese objeto se modifica se modificará asimismo lo contenido en el array ya que es el mismo objeto. [cite: 38]
+Por ejemplo, supongamos que tenemos la clase Persona que tiene un atributo público `edad` de tipo entero: [cite: 39]
+```java
+public class Persona {
+    public int edad;
+}
+``` [cite: 39, 40]
+Si ahora hacemos lo siguiente: [cite: 40]
+```java
+Persona[] personas = new Persona[2];
+Persona persona = new Persona();
+persona.edad = 25;
+personas[0] = persona;
+System.out.printf("La edad de la persona en la variable persona es de %d%n", persona.edad);
+System.out.printf("La edad de la persona en la posición 0 del array personas es de %d%n", personas[0].edad);
+persona.edad = 26;
+System.out.printf("La edad de la persona en la variable persona es de %d%n", persona.edad);
+System.out.printf("La edad de la persona en la posición 0 del array personas es de %d%n", personas[0].edad);
+``` [cite: 41, 42, 43, 44]
+Si intentas este código verás que los `printf` siempre muestran el mismo valor de edad, a pesar de que se ha cambiado la misma a través de la variable persona. [cite: 45] Esto es así porque tanto esta variable como el elemento 0 del array contienen una referencia al mismo objeto. [cite: 46] Por lo tanto, cualquier acceso, tanto a través de la variable o del elemento 0 del array se hace sobre el mismo objeto. [cite: 47]
+
+2.3.- Recorrer arrays. [cite: 1]
+Una de las tareas más frecuentemente realizadas sobre arrays es la de recorrer un array. [cite: 48] Recorrer un array consiste en "visitar" todos los elementos de un array, leyendo o modificando (o ambas cosas) los mismos con vistas a realizar una tarea concreta. [cite: 49] Por ejemplo, supongamos el array `double[] calificaciones` [cite: 50]
+que contiene las calificaciones de un alumno en un trimestre. [cite: 50] Si queremos calcular la calificación media debemos emplear todas las calificaciones que hay en el array. [cite: 51] Por tanto debemos recorrerlo. [cite: 51] También podrás leerlo en algún sitio como iterar el array. [cite: 52]
+Para recorrer un array hay dos métodos básicos. [cite: 53] Aunque no estás limitado a ellos y podrías emplear otros métodos, estos son los más utilizados: Ciclo `for` clásico y ciclo `forEach`. [cite: 53]
+
+2.3.1.- Ciclo for clásico. [cite: 1]
+En este método utilizamos un ciclo `for` clásico para recorrer el array. [cite: 54] Empleamos un contador que va tomando los valores del índice desde 0 hasta el del último elemento del array (`array.length - 1`). [cite: 55] Dentro del ciclo se emplea el valor actual del índice para acceder al elemento en cuestión del array. [cite: 56] Por ejemplo, para imprimir por pantalla todos los elementos de un array usando el ciclo `for` clásico, emplearíamos algo similar a lo siguiente: [cite: 57]
+```java
+// Creamos el array
+double[] calificaciones = {7.5, 2.3, 8.2, 5.6, 9.2};
+
+// Usamos un contador desde 0 hasta la longitud del array
+for (int i = 0; i < calificaciones.length; i++) {
+    // Imprimimos la calificación
+    System.out.println("La calificación " + i + " es de " + calificaciones[i]);
+}
+``` [cite: 57]
+Como puedes ver en el ciclo `for` se van tomando en `i` los valores enteros desde 0 hasta el anterior a `calificaciones.length` (la longitud del array). [cite: 58] Recuerda que `calificaciones.length` no es un valor de índice válido. [cite: 59] Dentro del ciclo empleamos `i` para acceder al elemento en cuestión del array `calificaciones`. [cite: 60] De esta forma vamos visitando todos los elementos del array empleando los índices 0, 1, ..., `calificaciones.length - 1`. [cite: 61]
+
+2.3.2.- Ciclo forEach. [cite: 1]
+En un ciclo estilo `forEach` no empleamos índices para ir accediendo a los elementos del array sino que se nos van proporcionando copias de los distintos valores contenidos en el array, una por vez. [cite: 62] La sintaxis básica es: [cite: 63]
+```java
+for (tipo variable: array) {
+    // Usa variable para lo que se necesite
+}
+``` [cite: 63]
+En el ciclo `forEach` se va asignando en cada iteración del ciclo un valor de `array` a la variable `variable`. [cite: 64] Ésta debe ser del mismo tipo que los elementos del array por supuesto, o un tipo compatible (número de menor precisión u objeto de subclase). [cite: 64] El mismo ejemplo de la sección anterior se haría usando `forEach` como se ve a continuación: [cite: 65]
+```java
+// Creamos el array
+double[] calificaciones = {7.5, 2.3, 8.2, 5.6, 9.2};
+// Usamos un ciclo forEach para recorrer el array
+for (double calificacion: calificaciones) {
+    // Imprimimos la calificación
+    System.out.println("La calificación es de " + calificacion);
+}
+``` [cite: 65, 66]
+Aparentemente son equivalentes, sin embargo hay algunas diferencias fundamentales: [cite: 66]
+En primer lugar no conocemos la posición dentro del array del elemento que estamos procesando en cada iteración. [cite: 66] Esto provoca, por ejemplo, que en nuestro código de ejemplo ya no mostremos por pantalla la posición de cada elemento, porque la desconocemos. [cite: 66, 67] Se podría haber hecho añadiendo un contador aparte que vamos incrementando de forma manual pero se ha omitido para resaltar el hecho de su falta. [cite: 67]
+En segundo lugar no podemos modificar los elementos del array directamente. [cite: 67] Esto es así porque en la variable se nos va proporcionando una copia de cada elemento del array, no el elemento en sí, por lo que no podemos modificarlo. [cite: 67] Si se intenta sólo se modifica la copia pero el contenido del array permanece inalterado. [cite: 67]
+Por lo tanto, cuando queramos control total sobre el array deberíamos usar un ciclo `for` clásico. [cite: 68] Si simplemente queremos consultar los valores podemos usar el ciclo `forEach`. [cite: 69]
+
+2.4.- Búsquedas en arrays. [cite: 1]
+Otra operación muy común es la de realizar búsquedas en arrays para determinar, o bien si hay un determinado valor contenido en algún elemento de un array (búsqueda simple), o bien no sólo si se encuentra o no sino también en qué posición dentro del array se encuentra, en caso de localizarlo (búsqueda completa o localización). [cite: 70] Para las búsquedas simples podemos usar tanto el ciclo `for` clásico como el `forEach`, aunque es más simple el uso de este último. [cite: 71, 72]
+Un método que busca un entero determinado en un array de enteros sería como se ve a continuación: [cite: 72]
+```java
+boolean buscarArrayEntero (int[] array, int buscado) {
+    // Para cada elemento
+    for(int elemento: array) {
+        // Si es el buscado
+        if (elemento == buscado) {
+            // Terminamos con éxito
+            return true;
+        }
+    }
+    // Si se llega al final del array sin haberlo encontrado es
+    // porque no está en el array
+    return false;
+}
+``` [cite: 73]
+Para las localizaciones la mejor opción es el `for` clásico: [cite: 74]
+```java
+private static int localizarArrayEntero(int[] array, int buscado) {
+    // Para cada indice del array
+    for (int i = 0; i < array.length; i++) {
+        // Si el elemento en esa posición es el buscado
+        if (array[i] == buscado) {
+            // Termina y devuelve la posición
+            return i;
+        }
+    }
+    // Si se llega al final del ciclo es que no se ha encontrado
+    // Devolvemos un valor establecido no válido en un array, por ejemplo -1
+    return -1;
+}
+``` [cite: 74, 75, 76]
+
+2.5.- Arrays multidimensionales. [cite: 1]
+Los elementos de un array pueden ser de cualquier tipo: primitivos, como `int` o `double`, objetos como `String`, o incluso otros arrays. [cite: 77] En este caso tendríamos arrays con más de una dimensión, lo que se denominan arrays multidimensionales en contraposición a los arrays que hemos visto hasta este momento que pasan a denominarse arrays unidimensionales. [cite: 77] Cuando se habla de arrays, a secas, se suele hablar de arrays unidimensionales. [cite: 78]
+El procesamiento de los arrays multidimensionales es más complejo que para los arrays unidimensionales, dado que tenemos que movernos en más de una dimensión y se dificulta el visualizar mentalmente la forma de recorrerlos o de buscar en ellos. [cite: 79]
+Para crear un array de dos dimensiones se haría de la forma: [cite: 80]
+`tipo[][] nombre = new tipo[cantidadfilas][cantidadcolumnas];` [cite: 80]
+donde `tipo` es el tipo de los elementos del array, `nombre` es el nombre del array, `cantidadfilas` es el número de filas que tiene el array y `cantidadcolumnas` es el número de columnas que tiene el array. [cite: 80]
+Podemos pensar en un array de dos dimensiones (bidimensional) como si fuera una tabla. [cite: 81] Cuando queremos acceder a un elemento hay que dar primero el índice que corresponde con la coordenada de la fila en la que está aquel y después otro índice que se corresponde con la coordenada de la columna. [cite: 82] Para acceder a un elemento de un array bidimensional hay que emplear entonces dos índices, de la forma: [cite: 83]
+`array[fila][columna]` [cite: 83]
+Al igual que con los unidimensionales, hay que tener cuidado con que los índices no sobrepasen los valores permitidos u obtendremos la misma excepción. [cite: 84]
+Java trata a un array bidimensional como un array de arrays. [cite: 85] El primer array contendría las filas. [cite: 85] Cada elemento de este array es a su vez un array que contiene los elementos de esa fila. [cite: 86] En la figura tenemos la representación gráfica del array `m` cuyas dimensiones son <span class="math-inline">5 \\times 4</span> (5 filas x 4 columnas) [cite: 86]
+
+ [cite: 87]
+
+Por lo tanto también podemos acceder usando un sólo índice: [cite: 87]
+`array[fila]` [cite: 87]
+Esto devuelve el array correspondiente a la fila en cuestión, que se puede recorrer como un array o asignarlo a una variable. [cite: 87]
+Como Java ve un array bidimensional como un array de arrays, a nadie extrañará la forma de inicializar un array en dos dimensiones. [cite: 88] Se hace anidando llaves: [cite: 88]
+Ejemplo: [cite: 88]
+`int[][] numeros = {{1,2,3}, {4,5,6}, {7,8,9}, {10,11,12}};` [cite: 89]
+Esto crea un array bidimensional de 4 filas y 3 columnas. [cite: 90] La primera fila contiene los números 1, 2 y 3, la segunda 4, 5 y 6, la tercera, 7, 8 y 9, y la cuarta 10, 11 y 12. [cite: 90, 91]
+Ejemplo: [cite: 91]
+```java
+// Creamos el array bidimensional
+// Con las tablas de multiplicar del 1 al 4 (filas 0 a 3)
+// Cada fila es una tabla y cada columna contiene
+// el múltiplo correspondiente a la fila
+int[][] tablasMultiplicar = {
+    {1,2,3,4,5,6,7,8,9},
+    {2,4,6,8,10, 12, 14, 16, 18, 20},
+    {3,6,9,12,15, 18, 21, 24, 27, 30},
+    {4,8,12,16,20, 24, 28, 32, 36, 40}
+};
+
+// Imprimimos cuanto vale 3*4
+// El número de fila y columna es uno menos porque los índices
+// comienzan por cero en lugar de por 1
+System.out.println("3*4 vale " + tablasMultiplicar[2][3]);
+
+// Podemos pasar una sola tabla e imprimirla
+imprimeTabla(3, tablasMultiplicar[2]);
+
+// Para recorrer la tabla se emplean dos ciclos
+// Uno para recorrer las filas y otro para recorrer
+// las casillas de una fila (las columnas)
+for (int i = 0; i < tablasMultiplicar.length; i++) {
+    System.out.println("Tabla del " + (i + 1));
+    for (int j = 0; j < tablasMultiplicar[i].length; j++) {
+        System.out.println((i + 1) + " * " + (j + 1) + " = " + tablasMultiplicar[i][j]);
+    }
+}
+// Método alternativo usando forEach
+for (int[] fila: tablasMultiplicar) {
+    System.out.println("Nueva fila");
+    for(int casilla: fila) {
+        System.out.println("Elemento: " + casilla);
+    }
+}
+``` [cite: 92, 93, 94]
+En este ejemplo creamos e inicializamos un array bidimensional correspondiente a las tablas de multiplicar de los números 1 al 4. [cite: 94] La tabla contiene 4 filas (correspondientes a los números 1 a 4) y 10 columnas (los múltiplos del número de la fila). [cite: 94] A continuación imprimimos un número cualquiera para ver como se accede a un elemento del array. [cite: 95] Después hacemos una demostración de como se puede pasar una fila como un array llamando al método privado `imprimeTabla` (intenta hacerlo tu) y pasándole una fila (`tablasMultiplicar[2]`). [cite: 96] `imprimeTabla` imprime la fila que se le pasa (que es un array unidimensional). [cite: 97]
+Por último hacemos una demostración de como se puede recorrer la tabla completa empleando el `for` clásico y el método `forEach`. [cite: 97] Como el array es bidimensional necesitaremos dos ciclos. [cite: 98] El primero va recorriendo las filas y el segundo va recorriendo el interior de cada fila. [cite: 98] El interior se ejecuta completamente tantas veces como filas haya. [cite: 99]
+En el caso del método `forEach` hay que fijarse en el tipo de la variable en el ciclo más externo. [cite: 100] En lugar de `int` (que es el tipo de la casilla) se emplea `int[]` porque lo que se obtiene en cada iteración es una fila, que es un array de `int`. [cite: 101] En el ciclo interior se itera sobre esta variable, que es un array usando, ahora sí, una de tipo `int`. [cite: 102]
+De la misma forma que tenemos arrays bidimensionales podríamos tener tridimensionales y de más dimensiones. [cite: 103] La forma de tratarlos es la misma pero teniendo en cuenta las múltiples dimensiones: Cada elemento de cada nivel es un array de nivel inferior. [cite: 104] Los índices deben estar controlados para evitar "salirse" del array y hay que utilizar tantos ciclos como dimensiones para recorrer completamente el array. [cite: 105] A continuación tenemos un ejemplo de manejo de array tridimensional en Java: [cite: 106]
+```java
+/*
+ * Creamos un array tridimensional. Va a contener la cantidad de lluvia
+ * en cada capital de andalucia en un dia determinado
+ * La primera coordenada es la ciudad siendo 0 = Almeria, 1 = Cadiz,
+ * etc. en orden alfabético
+ * La segunda es el mes 0 = enero, 1 = febrero, etc.
+ * La tercera es el día. Usaremos 31 para que valga para todos los meses, aunque en
+ * algunos meses haya casillas vacías que no se emplean
+ * Como es un ejemplo vamos a crear 2 capitales y 2 meses para no alargarlo mucho
+ */
+double[][][] pluviometriaAndalucia = {
+    {
+        {13.15,10.96,5.98,3.27,3.04,0.50,15.18,0.26,19.74,3.18,12.72,13.31,6.17,12.70,0.69,1.32,
+        1.42,12.36,16.72,9.78,1.69,14.09,8.76,12.41,13.25,6.79,15.41,12.39,18.80,5.47,8.91},
+        {11.35,16.34,6.01,17.76,13.92,18.26,5.10,6.15,19.24,10.94,1.94,16.69,10.42,11.72,13.08,1
+        2.75,14.04,3.62,2.59,14.70,9.17,0.48,0.84,19.45,11.21,19.65,10.86,1.11,14.79,14.90,13.48
+        }
+    },
+    {
+        {9.62,8.21,4.90,7.68,11.66,17.42,15.95,19.33,5.37,14.40,10.51,9.39,11.56,14.39,16.80,9.4
+        2,2.56,17.69,5.37,9.25,9.21,8.91,7.55,7.59,18.90,2.80,5.78,15.20,13.28,19.72,9.82},
+        {10.97,15.53,18.82,9.25,3.73,12.64,16.35,6.55,11.63,15.80,6.80,1.24,18.52,15.56,9.01,1.3
+        6,2.48,0.48,9.64,4.64,16.54,15.96,13.44,5.05,7.37,17.23,19.43,12.17,11.24,8.36,16.37}
+    }
+};
+
+// Imprimimos cuanto llovio en Cadiz el 10 de Febrero
+// El número de tabla, fila y columna es uno menos porque los índices
+// comienzan por cero en lugar de por 1
+System.out.println("El 10 de Febrero cayeron en Cádiz " + pluviometriaAndalucia[1][1][9]
++ " litros por metro cuadrado");
+
+// Podemos pasar una sola tabla e imprimirla
+// imprimeTabla(1, pluviometriaAndalucia[0]); // This method is not defined in the snippet
+// o sólo un mes
+// imprimeMes(1,1, pluviometriaAndalucia[0][0]); // This method is not defined in the snippet
+
+/*
+ * Para recorrer el array se emplean tres ciclos.
+ * El primero recorre las tablas, el segundo las filas y el tercero las columnas
+ */
+for (int i = 0; i < pluviometriaAndalucia.length; i++) {
+    System.out.println("Pluviometria de la capital " + (i + 1));
+    for (int j = 0; j < pluviometriaAndalucia[i].length; j++) {
+        System.out.println("Datos del mes " + (j + 1));
+        for (int k = 0; k < pluviometriaAndalucia[i][j].length; k++) {
+            System.out.println("El dia " + (k + 1) + " se recogieron " +
+            pluviometriaAndalucia[i][j][k] + " litros por metro cuadrado");
+        }
+    }
+}
+// Método alternativo usando forEach
+for (double[][] tabla: pluviometriaAndalucia) {
+    System.out.println("Nueva tabla");
+    for (double[] fila: tabla) {
+        System.out.println("Nueva fila");
+        for(double casilla: fila) {
+            System.out.println("Elemento: " + casilla);
+        }
+    }
+}
+``` [cite: 107, 108, 109, 110, 111, 601, 602, 603, 604, 605, 606, 607, 608, 609]
+En primer lugar se crea el array. [cite: 110] Fíjate en como se crea una estructura anidada de tres niveles. [cite: 111] El primer nivel corresponde a la ciudad y define internamente varias tabla. [cite: 612] El segundo corresponde al mes y define internamente varios arrays unidimensionales. [cite: 613] El tercero es la lluvia de cada día correspondiente a esa capital y mes. [cite: 614]
+A continuación se muestra como acceder a un dato en concreto dentro del array. [cite: 615] También se muestra como pasar parte del array. [cite: 616] En este caso se pueden pasar tablas completas (los datos de una capital) o arrays unidimensionales (los datos de un mes). [cite: 616]
+También se muestra como recorrer completamente los arrays empleando ambos métodos (for clásico y forEach). [cite: 617]
+
+3.- Genéricos. [cite: 1]
+
+3.1.- ¿Por qué se necesitan los genéricos? [cite: 1]
+En primer lugar, vamos a ver por qué necesitamos genéricos y después vamos a ver lo que son y como se implementan. [cite: 619]
+Imagina que tenemos una clase `GuardaPar`, la cual sirve para guardar dos objetos cualesquiera, de cualquier clase. [cite: 620] La implementación sería: [cite: 621]
+```java
+public class GuardaPar {
+    // Primer objeto
+    private Object objeto1;
+    // Segundo objeto
+    private Object objeto2;
+
+    // Constructor
+    public GuardaPar(Object objeto1, Object objeto2) {
+        // Almacenamos los dos objetos
+        this.objeto1 = objeto1;
+        this.objeto1 = objeto1; // This line seems to be a typo and should probably be this.objeto2 = objeto2;
+    }
+
+    // Obtiene el primer objeto
+    public Object getPrimerObjeto() {
+        return objeto1;
+    }
+
+    // Modifica el primer objeto
+    public void setPrimerObjeto(Object objeto) {
+        this.objeto1 = objeto;
+    }
+
+    // Obtiene el segundo objeto
+    public Object getSegundoObjeto() {
+        return objeto2;
+    }
+
+    // Modifica el segundo objeto
+    public void setSegundoObjeto(Object objeto) {
+        this.objeto2 = objeto;
+    }
+}
+``` [cite: 621, 622, 623, 624, 625, 626, 627]
+El primer problema que tenemos es que, como los objetos a guardar pueden ser de cualquier tipo ¿de qué tipo se declaran los atributos? [cite: 628] Una solución, que es la que tomamos aquí es emplear `Object` dado que esta clase es antecesora de TODAS las clases que podamos crear en Java. [cite: 629] Así podemos almacenar cualquier objeto en una referencia a `Object`. [cite: 629]
+Supongamos ahora el siguiente código: [cite: 629]
+```java
+// Primer objeto del par
+Integer primero = 1;
+// Segundo objeto del par
+Double segundo = 2.0;
+
+// Creamos el par con los dos números
+GuardaPar par = new GuardaPar(primero, segundo);
+
+// Hacemos más cosas
+// Intentamos recuperar el primer objeto
+Integer otroPrimero = par.getPrimerObjeto();
+``` [cite: 630, 631, 632]
+Este código no compila en la última línea. [cite: 633] La razón es sencilla, `getPrimerObjeto()` devuelve un objeto de la clase `Object`, no `Integer`. [cite: 634] Para poder asignarlo debemos forzar la conversión haciendo `cast`. [cite: 634]
+La línea correcta sería [cite: 634]
+`Integer otroPrimero = (Integer)par.getPrimerObjeto();` [cite: 635]
+El problema con esta aproximación es que podemos cometer otro tipo de errores que no se verán hasta que se ejecute la línea, por ejemplo, si en lugar de la línea anterior hacemos: [cite: 635]
+`Integer otroPrimero = (Integer)par.getSegundoObjeto();` [cite: 636]
+También compilará bien pero fallará al ejecutarse con la excepción `ClassCastException`. [cite: 637] Esto es así porque se intenta convertir desde una referencia a un `Double` a una referencia a un `Integer` y `Double` no hereda de `Integer`, con lo cual la conversión no es posible. [cite: 638]
+El problema de fondo consiste en que los tipos reales de los objetos que se guardan no son importantes, pues no se "hace" nada con ellos (no se leen atributos, no se invocan métodos, nada). [cite: 639] Sólo se almacenan durante un periodo más o menos largo y son leidos cuando se requiere. [cite: 640] Sin embargo, como es necesario especificar un tipo, empleamos `Object`, que es el más general y admite referencias a objetos de cualquier tipo. [cite: 641] El problema de esto es, precisamente, que `Object` es demasiado general y permite todo con lo que es fácil que el programador cometa errores, como el visto en el ejemplo anterior. [cite: 642]
+Si, como en el caso del ejemplo anterior conocemos de antemano las clases podríamos hacer una clase a medida. [cite: 643] Por ejemplo podríamos definir la clase `GuardaParIntegerDouble`, que guarda un `Integer` y un `Double`. [cite: 644] La implementación sería: [cite: 644]
+```java
+public class GuardaParIntegerDouble {
+    // Primer objeto
+    private Integer objeto1;
+    // Segundo objeto
+    private Double objeto2;
+
+    // Constructor
+    public GuardaParIntegerDouble(Integer objeto1, Double objeto2) {
+        // Almacenamos los dos objetos
+        this.objeto1 = objeto1;
+        this.objeto2 = objeto2;
+    }
+
+    // Obtiene el primer objeto
+    public Integer getPrimerObjeto() {
+        return objeto1;
+    }
+}
+``` [cite: 645, 646]
+
+3.2.- Clases genéricas. [cite: 1]
+
+3.3.- Métodos genéricos. [cite: 1]
+
+3.4.- Genéricos limitados. [cite: 1]
+
+4.- Colecciones en Java. [cite: 1]
+
+4.1.- Listas. [cite: 1]
+
+4.1.1.- Creación de listas. [cite: 1]
+
+4.1.2.- Manipulación de listas. [cite: 1]
+• `add(E elemento)`. Inserta el elemento `elemento` al final de la lista. [cite: 250]
+También se incorporan operaciones de inserción masivas que insertan el contenido completo de otra colección (puede ser otra lista pero no necesariamente) en la lista sobre la que estamos operando: [cite: 251]
+• `addAll(int indice, Collection coleccion)`. Inserta todos los elementos de la colección `coleccion` en la lista en la posición indicada por `indice`. [cite: 252, 254] Las posiciones comienzan por cero, por lo que la primera posición es cero, la segunda es 1, etc. [cite: 255] El elemento que ocupara esa posición y los siguientes se desplazarán tantas posiciones hacia el final de la lista como elementos se inserten. [cite: 255] Si el índice no está entre cero y la longitud de la lista se lanzará una excepción de tipo `IndexOutOfBoundsException`. [cite: 256]
+• `addAll(Collection coleccion)`. Inserta todos los elementos de la colección `coleccion` al final de la lista. [cite: 257]
+Hay que hacer notar que cuando añadimos un objeto a una lista, lo que se almacena en la misma es una referencia a ese objeto. [cite: 258] Dado que es una referencia, es posible, aunque puede que no sea recomendable, que un mismo objeto esté más de una vez en la lista, añadiendo una referencia a él múltiples veces. [cite: 259]
+Si se quiere reemplazar un elemento en lugar de añadir uno nuevo se emplea `set`: [cite: 260]
+• `E set (int indice, E elemento)`. Reemplaza el elemento en la posición `indice` por el nuevo elemento `elemento` proporcionado. [cite: 261] Si la posición es inválida lanza `IndexOutOfBoundException`. [cite: 261] Devuelve el elemento que ocupaba previamente la posición que se ha proporcionado. [cite: 262]
+Para acceder a un elemento en concreto dentro de la lista se utiliza el método `get`. [cite: 263] A este método se le pasa un índice y devuelve el elemento colocado en esa posición dentro de la lista. [cite: 264] Recordamos que las posiciones comienzan por cero, por lo que el primer elemento tendrá el índice 0, no 1 y así sucesivamente. [cite: 265]
+Para eliminar un elemento de la lista se utiliza el método `remove`. [cite: 266] A `remove` se le pasa la posición del elemento a eliminar de la lista. [cite: 267] La lista pasará a tener un elemento menos. [cite: 268] Si la única referencia al objeto era la de la entrada que se ha eliminado, el objeto se eliminará también. [cite: 268]
+Para limpiar la lista completamente tenemos el método `clear`. [cite: 269] Cuando se envía este mensaje la lista se reinicia y se eliminan todos los elementos. [cite: 269] Aquellos objetos que no estén referenciados en otra parte de la aplicación se eliminarán también. [cite: 270]
+Para conocer el estado de la lista disponemos de dos métodos: [cite: 271]
+• `int size()`. Devuelve el número de elementos que contiene la lista. [cite: 271] Puede ser cero. [cite: 271]
+
+4.2.- Conjuntos. [cite: 1]
+• `java.util.HashSet`. No mantiene un orden en particular. [cite: 301] Es muy eficiente en cualquier operación: Añadir, quitar, buscar. [cite: 302]
+• `java.util.LinkedHashSet`. Mantiene el mismo orden en que se insertan los elementos. [cite: 303] El rendimiento es ligeramente inferior a `HashSet`. [cite: 303]
+• `java.util.TreeSet`. Mantiene el orden que tengan los elementos de forma natural (números por la cantidad, cadenas por el orden alfabético, etc.). [cite: 304] Más lenta que las dos anteriores. [cite: 305] Usualmente usaremos `HashSet`, que es más rápido, si lo que queremos simplemente es contener los objetos o eliminar duplicados. [cite: 305] Si necesitamos ordenar los elementos, la mejor opción es `TreeSet`. [cite: 306] El uso de `LinkedHashSet` sólo tiene sentido si queremos "una lista" pero que no admita duplicados. [cite: 307]
+Ejemplo: [cite: 308]
+`Set<Integer> numeros = new HashSet<>();` [cite: 308] Crea un conjunto de enteros usando `HashSet`. [cite: 308]
+`Set<String> nombres = new TreeSet<>();` [cite: 309] Crea un conjunto de cadenas que se mantendrán ordenadas por orden alfabético. [cite: 309]
+
+4.2.1.- Manipulación de conjuntos. [cite: 1]
+Básicamente, un conjunto tiene casi los mismos métodos que `List`. [cite: 310] Las diferencias son las siguientes: [cite: 311]
+• No hay método `get`. [cite: 311] Los elementos de un conjunto NO se pueden obtener de forma independiente. [cite: 312] Lo único que se puede hacer es comprobar si un objeto está o no en el conjunto. [cite: 313]
+• Al añadir (`add`) no se puede especificar posición. [cite: 314]
+• No hay método `replace`. [cite: 314]
+• A `remove` no se le puede proporcionar índice, sólo una referencia. [cite: 315]
+• No tenemos método `indexOf`, aunque sí `contains`. [cite: 315]
+• Al recorrerlo sólo se puede usar el método `forEach` (ya que no tenemos `get`). [cite: 316] El orden en que se obtienen los elementos dependerá de la implementación del conjunto. [cite: 317]
+• Al obtener el array a partir del conjunto se obtiene en el mismo orden que al recorrerlo en `forEach`. [cite: 318]
+Un conjunto debe usarse cuando tenemos un conjunto (valga la redundancia) de datos homogéneos entre los cuales el orden no es importante (sólo importa si algo está o no está, no en qué posición). [cite: 319]
+
+4.3.- Mapas. [cite: 1]
+
+4.3.1.- Manipulación de mapas. [cite: 1]
+En la siguiente discusión `K` será el tipo de las claves (Keys) y `V` será el tipo de los valores. [cite: 338]
+Para añadir objetos a un mapa se emplea uno de tres métodos: [cite: 339]
+• `V put(K clave, V valor)`. Coloca en el mapa el valor `valor` asociado a la clave `clave`. [cite: 340] Si no había ya un valor asociado a la clave `clave` devuelve `null`. [cite: 341] Si ya lo había devuelve el valor anterior antes de sustituirlo. [cite: 342]
+• `void putAll(Map mapa)`. Coloca en este mapa todas las asociacciones contenidas en el mapa `mapa`, como si se hicieran los `put`, uno a uno. [cite: 343]
+• `V putIfAbsent(K clave, V valor)`. Coloca en este mapa el valor `valor` asociado a la clave `clave`, si es que no existe. [cite: 344] Si existe no se hace nada y devuelve el valor actual asociado a `clave`. [cite: 345] Si no existe lo añade y devuelve `null`. [cite: 346]
+Para obtener un valor desde el mapa tenemos: [cite: 346]
+• `V get(Object clave)`. Obtiene el valor asociado a la clave `clave`. [cite: 347] Si no hay valor asociado a la clave devuelve `null`. [cite: 347]
+• `V getOrDefault(Object clave, V valorPorDefecto)`. Obtiene el valor asociado a la clave `clave`, si es que hay un valor asociado a la misma. [cite: 348] Si no lo hay devuelve `valorPorDefecto`. [cite: 349]
+Para eliminar un elemento en el mapa usaremos `remove`. [cite: 349] A `remove` se le pasa una clave y elimina el elemento asociado a dicha clave, si es que lo hay y lo devuelve. [cite: 350] Si no lo hay no hace nada y devuelve `null`. [cite: 351]
+Como métodos informativos tenemos: [cite: 351]
+• `int size()`. Devuelve el número de mapeos que contiene el mapa. [cite: 352] Debe ser mayor o igual a cero. [cite: 352]
+• `boolean isEmpty()`. Devuelve `true` si el mapa está vacío o `false` en caso contrario. [cite: 353]
+• `boolean containsKey(Object clave)`. Devuelve `true` si hay un mapeo cuya clave es `clave`. [cite: 354] `false` si no lo hay. [cite: 354]
+• `boolean containsValue(Object valor)`. Devuelve `true` si hay algún mapeo cuyo valor es `valor`. [cite: 355] `false` en caso contrario. [cite: 355]
+Para acceder a todos los mapeos tenemos dos opciones: [cite: 356]
+• `Set<K> keySet()`. Obtiene un conjunto con todos las claves del mapa. [cite: 357] A utilizar cuando interesa conocer los mapeos completos (clave y valor). [cite: 357]
+• `Collection<V> values()`. Obtiene una colección con todos los valores del mapa. [cite: 358] No se puede saber que clave corresponde a cada valor. [cite: 358] A utilizar cuando sólo interesan los valores. [cite: 359]
+Los mapas son estructuras muy útiles cuando se necesita localizar rápidamente objetos dentro de una colección sin necesidad de realizar búsquedas, cuando se quiere usar algo que sea como un array pero queremos utilizar otro tipo que no sea el entero como "índice" o cuando queremos usar algo que sea como un array, empleando un índice numérico, como un array pero éste es disperso, esto es, no queremos un índice acotado a los valores 0...N sino cualquier combinación de valores enteros. [cite: 359]
+
+5.- Expresiones regulares. [cite: 1]
+Una expresión regular es una expresión, como su nombre indica, que describe un patrón dentro de una cadena de texto. [cite: 360, 361] Se utilizan principalmente para búsquedas de secuencias de caracteres determinados dentro de una cadena de texto o para validar que una cadena de texto dada cumple con un patrón determinado. [cite: 362]
+Ejemplo de patrones comunes serían: [cite: 363]
+• Un número de teléfono simple que está formado por 9 dígitos (en España al menos). [cite: 363]
+• Un DNI que está formado por 8 dígitos y una letra mayúscula. [cite: 364]
+• Una fecha en formato dd-mm-aaaa. [cite: 365]
+• Una dirección IP formada por cuatro números separados por un punto. [cite: 365]
+En todos estos casos podemos especificar el patrón de forma formal usando expresiones regulares y utilizar un motor de expresiones regulares para determinar si una cadena sigue este patrón o alguna parte de la cadena coincide con el patrón. [cite: 365]
+En primer lugar vamos a ver la sintaxis de las expresiones regulares y a continuación veremos el motor de expresiones regulares que ofrece Java. [cite: 366]
+
+5.1.- Sintaxis de las expresiones regulares. [cite: 1]
+Una expresión regular es una mezcla de caracteres especiales (que tienen un significado especial definido en la sintaxis de las expresiones regulares) y caracteres no especiales que NO tienen ningún significado especial. [cite: 367] Cuando en una expresión aparece un carácter no especial, el carácter se representa a sí mismo. [cite: 368] Por ejemplo, la expresión regular: [cite: 369]
+`a` [cite: 369]
+sólo representa a la cadena `a` o la expresión: [cite: 369]
+`hola` [cite: 369]
+sólo representa a la cadena `hola`. [cite: 369] Dado que ninguno de los carácteres es especial la expresión indica simplemente la letra h seguida de la letra o, seguida de la letra l y terminando por la letra a. [cite: 370] Cualquier otra cadena no sigue el patrón. [cite: 370]
+Si se desea que un carácter especial aparezca por sí mismo en una expresión es necesario "desespecializarlo" o escaparlo (`escaping` en inglés). [cite: 371, 372] Para ello se precede el carácter del carácter de escape que es la barra invertida (`\`). [cite: 372] Dado que la barra invertida es en sí un carácter especial (pues sirve para escapar), si se quiere que aparezca hay que escaparla consigo misma. [cite: 373] De esta forma la expresión: [cite: 373]
+`\\` [cite: 373]
+se corresponde con la cadena `\`. [cite: 374] La primera barra escapa la segunda, que es la que vale por sí misma. [cite: 374] Por lo tanto coincide con la cadena `\` y ninguna más. [cite: 375]
+
+5.1.1.- Clases de caracteres. [cite: 1]
+Si se desea que en una posición dentro de la expresión regular se pueda optar entre varios caracteres distintos hay que emplear una clase de caracteres. [cite: 376] Una clase de caracteres se escribe como un paréntesis cuadrado (o corchete), seguido de los caracteres que forman la clase y terminando por otro paréntesis cuadrado. [cite: 377] La clase se puede sustituir por cualquiera de los caracteres que la forman. [cite: 378] Por ejemplo si tenemos: [cite: 378]
+`h[oa]la` [cite: 378]
+esto coincidiría tanto con la cadena `hola` como con la cadena `hala`. [cite: 378] El segundo carácter de la expresión se ha dado como una clase que contiene los caracteres `o` y `a`. [cite: 379] Por lo tanto en esa posición puede ir tanto `o`, como `a`, pero ningún carácter más. [cite: 379] Por lo tanto `hila` sería incorrecta (no coincide con el patrón dado por la expresión regular). [cite: 380]
+Esta notación se puede ampliar para cubrir casos comunes. [cite: 381] El primer caso es cuando se quieren unos caracteres que están próximos. [cite: 382] Por ejemplo, si queremos una expresión que admita cualquier dígito podríamos hacer: [cite: 382]
+`[123456789]` [cite: 382]
+Esto coincidiría tanto con 1 como con 2 como con 9. [cite: 382]
+Sin embargo es excesivamente largo o verboso. [cite: 383] Con las letras es peor. [cite: 383] Si queremos una expresión que represente a una letra deberíamos hacer `[abcdefghijklmnopqrstuvwxyz]` [cite: 383] Y si ya queremos incluir también las mayúsculas (que no están incluidas en lo anterior) `[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]`. [cite: 384]
+Existe una forma abreviada de hacer esto empleando el guión (`-`) de la forma: [cite: 384]
+`[0-9]` para la primera expresión, [cite: 384]
+`[a-z]` para la segunda o [cite: 384]
+`[a-zA-Z]` para la tercera. [cite: 384] El guión se lee como los caracteres comprendidos entre el situado a la izquierda y el situado a la derecha, ambos incluidos. [cite: 384] Hay que tener cuidado porque se emplea el código de carácter para determinar el rango y fuera de las letras y los números estos códigos pueden dar resultados extraños, por lo que no se recomienda su uso. [cite: 384]
+Otra notación alternativa es la negativa. [cite: 385] Esto permite expresar una clase negativa que implica cualquier carácter excepto los indicados en la clase. [cite: 386] Para marcar una clase negativa hay que incluir el carácter `^` justo después del paréntesis cuadrado de apertura. [cite: 387] Por lo tanto la expresión: [cite: 387]
+`h[^a]la` [cite: 387]
+es equivalente a decir: "cualquier cadena que comienza por h, continúa por cualquier carácter que no sea una a y sigue con l y a". [cite: 387] Esto se correspondería, por ejemplo, con las cadenas: `hola`, `hula`, `h&la`, `h;la` pero no con `hala`. [cite: 388] Por supuesto, se pueden combinar. [cite: 389] Por ejemplo, la expresión: [cite: 389]
+`h[^0-9]la` [cite: 389]
+significa cualquier cadena que comienza por h, continúa por cualquier cosa que no sea un dígito y termina con l y a. [cite: 389] Las cadenas siguientes concordarán con esa expresión: `hola`, `hala`, `h&la`, `h:la`, `hhla` pero no `h0la`, `h9la`, `h5la`. [cite: 390, 391]
+Como las clases de caracteres se usan ampliamente al crear expresiones regulares, existen también una forma abreviada de indicar las clases de caracteres más utilizadas. [cite: 391, 392] Estas formas abreviadas usan el carácter de escape (`\`) y representan, como ya se ha dicho, las clases más utilizadas: [cite: 392]
+Clases de caracteres predefinidas: [cite: 393]
+| Valor | Representa a |
+|---|---|
+| `.` | Cualquier carácter |
+| `\d` | Un dígito (equivalente a `[0-9]`) |
+| `\D` | Cualquier cosa menos un dígito (equivalente a `[^0-9]`) |
+| `\s` | Blanco (`[ \t\n\r]`) |
+| `\S` | Cualquier cosa que no sea un blanco (`[^ \t\n\r]`) |
+| `\w` | Un carácter que puede aparecer en un identificador (`[a-zA-Z_0-9]`) |
+| `\W` | Cualquier carácter que NO pueda aparecer en un identificador (`[^a-zA-Z_0-9]`) | [cite: 393]
+
+5.1.2.- Indicadores de situación. [cite: 1]
+Los indicadores de posición sirven para indicar límites, más que caracteres. [cite: 394] Los indicadores disponibles son: [cite: 394]
+Indicadores de situación: [cite: 394]
+| Valor | Representa a |
+|---|---|
+| `^` (Fuera de corchetes) | Indica el inicio de la cadena |
+| `$` | Indica el fin de la cadena |
+| `\b` | Indica un límite de palabra (espacio o inicio / fin de cadena) | [cite: 394]
+Por ejemplo: [cite: 394]
+`^hola$` coincidiría con la cadena completa `hola`. [cite: 394]
+Otro ejemplo: [cite: 394]
+`\bhola` correspondería con: `hola adios`, `hola` pero no con `chola`. [cite: 394, 395]
+
+5.1.3.- Cuantificadores o repetidores. [cite: 1]
+Los cuantificadores (también llamados repetidores) permiten indicar la repetición de una parte de una expresión. [cite: 395, 396] Los cuantificadores indican el número de veces que se puede repetir el carácter situado justo antes que ellos en la expresión. [cite: 396, 397] Los cuantificadores disponibles en Java son: [cite: 397]
+Cuantificadores: [cite: 397]
+| Valor | Representa a |
+|---|---|
+| `?` | Una o ninguna vez (opcional) |
+| `+` | Una o más veces |
+| `*` | Cero o más veces |
+| `{n}` | Exactamente n veces |
+| `{n,}` | n veces o más |
+| `{n,m}` | Entre n y m veces, ambos incluidos | [cite: 398]
+Si se quiere que el repetidor se aplique a más de un carácter, hay que agrupar lo que se quiera cuantificar con paréntesis. [cite: 399]
