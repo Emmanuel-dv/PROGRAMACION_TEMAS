@@ -1,0 +1,209 @@
+
+Bloque 03 Programación Estructuras de control 
+
+Índice 
+1.- Introducción 
+2.- Estructuras de selección 
+2.1.- Estructura if 
+2.2.- Estructura if-else 
+2.3.- Estructura if (else if) else 
+2.4.- Operador ternario 
+2.5.- Estructura de selección múltiple (switch) 
+3.- Ámbito de las variables 
+4.- Estructuras de repetición 
+4.1.1.- Estructura while 
+4.1.2.- Estructura do-while 
+4.1.3.- Estructura for 
+4.1.4.- Consideraciones a la hora de escribir repeticiones 
+5.- Sentencias de salto 
+5.1.- Sentencia break 
+5.2.- Sentencia continue 
+6.- Control de excepciones 
+6.1.- Excepciones 
+6.2.- Proceso de excepciones 
+7.- Depuración de programas 
+7.1.- Puntos de ruptura 
+7.2.- Inspección de datos 
+7.3.- Ejecución paso a paso 
+7.4.- ¿Cómo se depura un programa? 
+7.5.- El Plan de Pruebas 
+8.- Documentación de programas 
+8.1.- Documentación interna: comentarios 
+8.2.- Documentación externa: Diagramas de clases UML 
+8.2.1.- Clases en UML 
+8.2.2.- Relaciones entre clases 
+8.2.2.1.- Asociación 
+8.2.2.2.- Agregación 
+8.2.2.3.- Herencia 
+9.- Resumen 
+10.- Referencias 
+
+1.- Introducción 
+Hasta ahora todos los programas realizados eran necesariamente simples por una razón también simple: Sólo podíamos usar instrucciones y expresiones en forma secuencial, esto es, una instrucción siguiendo a otra y todas las instrucciones debían hacerse siempre.  Esta forma de funcionar, aunque sirve para hacer algunas tareas de programación no sirve para hacerlas todas ya que muchas veces es necesario el poder: 
+
+Hacer un paso o pasos en un programa sólo algunas veces, dependiendo de los valores de ciertos datos. 
+Repetir un mismo paso o grupo de pasos más de una vez sin necesidad de conocer a priori cuantas repeticiones se van a realizar (también depende en cierta medida de los datos).  Es por esto que todos los lenguajes de programación necesitan ciertas estructuras de control cuya misión es reconfigurar el flujo o secuencia de ejecución de un programa según los datos del mismo, de forma que se puedan realizar cualquier tarea, por compleja que esta sea.  En este bloque aprenderemos cuales estructuras tenemos a nuestra disposición así como la forma de usarlas en Java. 
+2.- Estructuras de selección 
+Las estructuras de selección son aquellas que permiten seleccionar (de ahí su nombre) qué instrucciones o pasos se realizan en un momento determinado de ejecución del programa.  También se conocen comúnmente como estructuras condicionales, aunque el nombre correcto y formal es el arriba indicado. 
+Hay dos tipos de estructuras de selección clásicas: La estructura simple (que a veces se puede complicar bastante) y la estructura múltiple. 
+
+2.1.- Estructura if 
+La primera estructura de selección simple es el implementado por la instrucción if de la forma: if (valor_booleano) { .....instrucciones.... } 
+La instrucción consta de la palabra reservada if, seguida de un valor booleano entre paréntesis (los paréntesis son obligatorios), y seguido de un bloque.  El funcionamiento es muy simple: si el valor booleano vale true, se ejecutarán las instrucciones contenidas en el bloque.  Si vale false, las instrucciones contenidas en el bloque se ignoran y continúa la ejecución por la instrucción situada detrás del bloque.  Por supuesto, para proporcionar el valor booleano se puede emplear cualquier expresión que devuelva un valor booleano, desde un literal (true, false) a una expresión lógica, de comparación o el valor devuelto por un mensaje.  Si la expresión no devuelve un valor booleano, Java lo considera un error y no compila. 
+
+2.2.- Estructura if-else 
+El ejemplo del apartado anterior está algo "cojo".  Esto es así porque si el número introducido es par se muestra un mensaje acorde pero si no lo es no se imprime nada.  Lo ideal sería que cuando el número sea impar se imprima un mensaje indicándolo. 
+Esta forma de usar la estructura if es tan común que se ha inventado una forma de expresarla de forma más sencilla: usando la sentencia else.  Ésta tiene la forma: if (valor_booleano) { ..instrucciones bloque if... } else { ..instrucciones bloque else } 
+En esta forma se añade, después del bloque correspondiente al if la palabra reservada else y otro bloque de instrucciones.  El funcionamiento es el siguiente: Si el valor booleano es true se ejecutarán las instrucciones contenidas en el bloque después de if.  Las instrucciones contenidas en el bloque correspondiente a else se ignorarán y no se ejecutarán.  En caso que el valor booleano fuera false ocurriría lo opuesto: las instrucciones contenidas en el bloque if no se ejecutarían y si lo harían las contenidas en el bloque else. 
+Esta forma tiene dos ventajas sobre la anterior. Una es obvia (es más corto) y otra no lo es tanto: En esta segunda forma no es necesario el diseñar dos expresiones booleanas (que en algunos casos pueden llegar a ser bastante complejas de por si) exactamente opuestas.  La sentencia else se asegura automáticamente que se realizarán instrucciones siempre que ocurra la condición opuesta a la expresada en el if, sea esta lo compleja que sea.  Por lo tanto es más sencillo de programar y menos propenso a errores. 
+
+2.3.- Estructura if - (else if) - else 
+Existe otro caso menos común que los dos anteriores pero que se da con cierta frecuencia, que es el de elegir entre más de un caso. 
+Aquí no tenemos una elección entre dos opciones, como era el caso del if ... else sino que tenemos tres.  Para ello existe una forma especial de if que nos permite realizarla de forma más o menos simple. 
+El funcionamiento de esta estructura es el siguiente: 
+
+Si el valor booleano del primer if es true se ejecuta el bloque que le sigue. 
+Si no lo es, se examina el valor correspondiente al segundo if.  Si es true se ejecuta el bloque que lo sigue. 
+Si tampoco el segundo es true, se ejecuta el bloque correspondiente al else.  En los tres casos, una vez finalizado el código del bloque correspondiente, se continúa por el código marcado como siguientes. 
+2.4.- Operador ternario 
+Un uso muy común de la instrucción if / else es el de asignar un valor determinado a una variable dependiendo de una condición. 
+Este tipo de uso, como ya se ha dicho, es muy común, por lo que muchos lenguajes, entre ellos Java, ofrecen una forma abreviada de hacerlo: el operador ternario.  El operador ternario se llama así porque recibe tres operandos en lugar de dos o uno como viene siendo habitual.  Tiene la forma: valor_booleano ? valor_si_true: valor_si_false 
+Como ves, toma tres valores, de los cuales el primero debe ser obligatoriamente booleano.  El operador devuelve el valor valor_si_true si el valor booleano es true o el valor valor_si_false si el valor booleano es false. 
+
+2.5.- Estructura de selección múltiple (switch) 
+Con las estructuras vistas hasta ahora disponemos de las herramientas necesarias para ejecutar o no a nuestra conveniencia cualquier instrucción o bloque de instrucciones. 
+Sin embargo, la estructura de selección múltiple que hemos visto hasta ahora (if else if... else) es compleja y difícil de seguir cuando hay más de tres o cuatro casos ya que hay que ir buscando condiciones y bloques y se nos puede trastocar alguno si no leemos con atención. 
+Para simplificar este tipo de estructuras se inventó otra forma de hacer la selección múltiple que es más clara de ver en muchos casos: La estructura Switch.  La estructura es como sigue: switch (valor_primitivo) { case literal_o_constante1: instruccion_bloque_1; instruccion_bloque_1; case literal_o_constante2: instruccion_bloque_2; instruccion_bloque_2; break; default: instruccion_bloque_3; instruccion_bloque_3; } 
+Lo que hace la sentencia es comparar el valor valor_primitivo (que debe ser int, char o String) con cada uno de los valores que se proporcionan en las distintas cláusulas case, en el orden en que estas aparecen en el código.  En el momento en que se produce una coincidencia entre los dos valores, se comienzan a ejecutar las sentencias que siguen al case en cuestión, hasta el final del switch.  Nótese los dos puntos (:) colocados después de los valores de cada case (son obligatorios).  Si no se produce ninguna coincidencia y existe un apartado default, se ejecuta lo que haya tras éste.  Si no se produce ninguna coincidencia y NO existe un apartado default, no se haría nada.  Hay que insistir en el hecho de que default no lleva valor alguno y es una palabra reservada. 
+Este comportamiento tiene unas consecuencias un poco inesperadas que deben ser tratadas con cuidado.  Sin embargo, bien utilizado este comportamiento también puede ser útil. 
+Este comportamiento, que obviamente no es el deseado en muchos casos, se puede modificar usando una nueva instrucción, break, que colocada como última instrucción dentro de un case provoca que se termine el switch inmediatamente al llegar a ella y se continúe por las instrucciones situadas a continuación del mismo. 
+
+3.- Ámbito de las variables 
+Hasta ahora no hemos tratado el problema del ámbito de las variables debido a que no habíamos usado bloques anidados (bloques contenidos dentro de otros bloques).  En esta unidad, sin embargo, ya comenzamos a usar estas estructuras por lo que el problema se presenta y debemos saber cómo solucionarlo. 
+Hasta ahora todas las variables que hemos creado eran válidas desde el momento en que se creaban hasta el final del bloque.  Esto era así porque sólo había un bloque en todo el programa (el bloque del método main).  Al introducir las estructuras de control nos ocurre que ahora nuestros programas contienen varios bloques anidados y estas reglas de existencia de las variables no funcionan ya exactamente igual, o así nos lo parece. 
+La regla anterior habría que modificarla y expresarla de manera ligeramente distinta.  La modificación es que la regla quedaría así: 
+Una variable existe desde el momento en que se crea hasta el momento en que termina el bloque en donde se declara. 
+La variable a, sin embargo puede usarse sin problemas en los dos bloques.  Esto es así porque se declara en el bloque exterior y este aún no ha finalizado cuando se entra al bloque interior, por lo que se puede usar en éste sin problemas.  Hay que tener cuidado con esta regla ya que nos podemos encontrar con problemas inesperados, por ejemplo, declarar una variable dentro de un bloque switch que luego nos encontramos que no podemos usar al terminar el mismo, por ejemplo. 
+
+4.- Estructuras de repetición 
+Una situación que se produce frecuentemente a la hora de realizar algoritmos es la necesidad de repetir varias veces una serie de instrucciones, con ligeras diferencias entre una repetición y otra.  A las estructuras que sirven para implementar estas repeticiones se les denomina de forma apropiada estructuras de repetición, también conocidas como ciclos o bucles. 
+
+4.1.1.- Estructura while 
+La estructura while repite un bloque de instrucciones mientras una condición sea verdadera.  Lo que distingue a while de otras estructuras de repetición es que la comprobación de la condición se realiza antes de iniciar una repetición y puede incluso ocurrir que el bloque no se ejecute nunca si la primera vez que se comprueba la condición, ésta ya es falsa.  La estructura while tiene la forma: while (expresión_booleana) { ..... instrucciones que se repiten.... } 
+Consta de la palabra reservada while, seguida de una expresión booleana entre paréntesis (obligatorios).  Por último un bloque de instrucciones.  Funciona de la manera siguiente: Se evalúa la expresión booleana.  Si es true se ejecuta el contenido del bloque.  Al finalizar la ejecución del bloque se vuelve a comprobar la expresión booleana y vuelta a empezar.  Si la expresión vale false, se salta el bloque y se continúa por la siguiente instrucción. 
+
+4.1.2.- Estructura do-while 
+La estructura do-while es muy similar a la anterior pero tiene una diferencia fundamental.  Tiene la forma: do { ..... instrucciones.... } while (expresion_booleana); 
+Como se puede ver comienza por la palabra reservada do, seguida de un bloque con las instrucciones a repetir, seguido todo por la palabra reservada while y una expresión booleana entre paréntesis (obligatorios). 
+En este caso lo primero que se hace es ejecutar el bloque de instrucciones siempre y a continuación se evalúa la expresión booleana.  Si ésta vale true se vuelve a ejecutar el bloque otra vez y se repite el procedimiento.  Si vale false se termina y continúa por la siguiente instrucción.  Nótese que la diferencia fundamental con while es que en este caso el cuerpo del ciclo (el bloque de instrucciones) se ejecuta siempre al menos una vez, a diferencia de while en que podía ocurrir el caso de que el cuerpo no se ejecutara ninguna vez. 
+
+4.1.3.- Estructura for 
+La estructura for es la más complicada de las tres estructuras de repetición y tiene más de una forma de funcionamiento.  En este bloque veremos la más simple pero la revisitaremos y ampliaremos cuando hablemos de los arrays y las colecciones para ver una nueva forma de for.  La estructura for tiene la forma: for (expresion_inicializacion;expresion_continuar;expresion_actualizacion) { .... instrucciones... } 
+Funciona de la siguiente manera: 
+
+Se evalúa la expresión expresion_inicializacion.  Esta expresión sólo se evalúa una vez y sirve para realizar inicializaciones de cosas que se van a usar en el bucle, como variables, normalmente. 
+Se evalúa la expresión booleana expresion_continuar.  Si vale true se ejecuta el bloque. 
+Si vale false se salta el bloque y se continúa por la siguiente instrucción. 
+Después de ejecutar el bloque se evalúa la expresión expresion_actualizacion. 
+Se vuelve al paso 2.  Tanto los paréntesis como los punto y coma (;) son obligatorios.  Las expresiones pueden no incluirse si no son necesarias pero los punto y coma deben estar siempre (si no se produce un error de compilación).  Si la expresión expresion_continuar no se indica se supone que vale siempre true. 
+4.1.4.- Consideraciones a la hora de escribir repeticiones 
+Como hemos podido ver existen varias estructuras que se pueden usar para realizar repeticiones.  En primer lugar hay que indicar que teóricamente sólo sería necesaria la estructura while, pudiéndose simular las otras dos con ésta.  Se deja como ejercicio el ver cómo esto es posible. 
+Sin embargo la disponibilidad de varias estructuras de repetición obedece a una razón de comodidad y eficiencia.  Es más rápido, sencillo y eficiente utilizar la estructura adecuada para cada ocasión de forma que se minimicen errores y el código sea lo más claro posible.  Por lo tanto es importante el saber elegir cual es la estructura más adecuada para cada situación que se nos pueda plantear mientras realizamos un programa. 
+Aunque no existe una única regla al respecto, una que puedes usar y que suele funcionar bien en la mayoría de las ocasiones es la siguiente: 
+
+En primer lugar, debes hacer y contestar a la siguiente pregunta: Cuando el flujo del programa llega al comienzo del ciclo, ¿se tiene ya información suficiente para saber cuantas repeticiones se van a hacer en éste?  Dicho de otra manera, ¿el programa dispone de suficiente información al inicio del ciclo para saber cuantas repeticiones serán?  Si la respuesta es SI la mejor opción es usar la estructura for. 
+Si la respuesta a la pregunta anterior es NO deberíamos hacernos otra a fin de elegir entre las otras dos opciones que nos quedan.  La pregunta sería: ¿Es necesario que el cuerpo del ciclo (el bloque que se repite) se ejecute al menos una vez siempre?  Si la respuesta es SI la mejor opción es usar do-while.  Si la respuesta es NO entonces while.  Este procedimiento no pretende ser una regla estricta sino que un programador elige el tipo de ciclo que le conviene por sus propias razones pero puede ser útil en caso de que estés aprendiendo a programar (como es el caso de la mayoría de los que leen esto) y tengas dificultad en elegir el tipo de ciclo apropiado a cada caso.  Una precaución importante que hay que tener al trabajar con ciclos es la de evitar lo que se conoce como ciclos infinitos.  Estos son ciclos que nunca terminan de repetirse, principalmente por un mal diseño de la condición de salida del mismo.  Cuando se entra a un ciclo infinito el programa se detiene (se dice que se cuelga) aunque realmente no para de funcionar ejecutando la misma sección de programa una y otra vez.  Para evitar ciclos infinitos debes asegurarte que: 
+La condición de finalización del ciclo contiene al menos una variable o envío de mensaje que devuelve un valor.  Si la expresión contiene sólo elementos constantes no cambiará nunca provocando que o bien el ciclo sólo se haga una (o ninguna) veces o bien que se haga indefinidamente.  La condición siempre debe depender de algún valor que pueda variar. 
+Dentro del cuerpo del ciclo se modifica en algún momento el valor de la variable o variables que participan en la condición de forma que eventualmente se alcance el final de las repeticiones.  En el caso de mensajes a objetos esto queda fuera del alcance del programador que realiza el ciclo. 
+5.- Sentencias de salto 
+Aunque no es muy recomendable usarlas y en la mayoría de los casos se puede pasar sin ellas, Java también incluye sentencias de salto que pueden ser empleadas para simplificar la lógica, especialmente en ciclos. 
+
+5.1.- Sentencia break 
+La sentencia break, cuando se ejecuta, finaliza inmediatamente la ejecución del bloque en que se encuentra y continúa la ejecución por las instrucciones situadas inmediatamente a continuación del mismo. 
+
+5.2.- Sentencia continue 
+La sentencia continue, cuando se ejecuta, finaliza inmediatamente la ejecución del resto de instrucciones que contiene el bloque en que se encuentra.  Si el bloque forma parte de un ciclo, la condición de éste se reevalúa como si se hubiera llegado al final del bloque de la forma habitual.  Lo podemos ver como un reinicio de la repetición del ciclo para el siguiente valor. 
+
+6.- Control de excepciones 
+El control de excepciones en Java permite tratar las posibles condiciones excepcionales o erróneas que se produzcan y continuar la ejecución de un programa. 
+
+6.1.- Excepciones 
+En Java las condiciones excepcionales o excepciones son condiciones que se producen de forma excepcional durante la ejecución de un programa (no confundir con errores de sintaxis o similares que se detectan durante la compilación) y provocan que el programa no pueda continuar haciendo lo que fuera que estaba haciendo hasta ese momento. 
+Por ejemplo, supongamos que tenemos un programa que solicita dos números al usuario, divide al primero entre el segundo y muestra el resultado.  ¿Qué ocurre si el usuario, maliciosamente o por error, introduce cero como segundo número?  Como sabrás la división por cero es una operación que no se puede realizar ya que su resultado es indeterminado.  ¿Qué ocurre cuando el programa se encuentra con que se pide dividir un número por cero?  No puede obtener un resultado correcto (porque no lo hay) pero el código siguiente espera que el resultado se haya realizado.  Como puedes ver se produce una condición excepcional, una condición que no está prevista y en la cual el programa no puede continuar.  Otro ejemplo es cuando solicitamos al usuario un número por teclado usando Integer.parseInt(scan.nextLine()) ¿Qué ocurre si el usuario, por error, teclea algo que no es un número?  No se puede obtener un número correcto, porque no hay equivalencia pero no se puede seguir porque no tenemos el número esperado.  Tenemos otra situación excepcional. 
+En estos casos Java hace lo que se conoce como lanzar una excepción.  Se crea un objeto especial (la excepción) que contiene información sobre lo ocurrido (qué ha pasado y en qué instrucción exacta ha ocurrido) y se interrumpe inmediatamente la ejecución en la instrucción que provoca el error.  Si esta excepción no se trata de forma adecuada, el programa se termina inmediatamente, mostrando la información de la excepción por pantalla. 
+
+6.2.- Proceso de excepciones 
+Si un programador no desea que un programa se interrumpa cuando se produzca una excepción determinada puede crear lo que se denomina un manejador de excepciones.  Un manejador de excepciones es un bloque de código que se ejecuta de forma automática cuando se produce una excepción (también se suele decir que captura una excepción).  El código dentro del bloque deberá tomar las medidas que crea oportunas para contener el daño producido por la excepción e incluso retomar la ejecución de la aplicación. 
+Un manejador de excepciones tiene la forma: try { .... bloque de código normal..... } catch (Excepcion1 e) { ... codigo del manejador de excepciones 1... } catch (Excepcion2 e2) { .... codigo del manejador de excepciones 2.... } 
+La estructura es simple.  Se coloca dentro de un bloque try las instrucciones que podrían lanzar excepciones y las cuales queremos tratar.  A continuación se incluyen uno o más bloques catch con las excepciones que queremos procesar si se producen.  Si se produce una excepción que no esté en los catch la excepción no se procesa y el programa termina inmediatamente.  Si se produce una excepción y tenemos un catch para ella, se ejecuta el bloque correspondiente al catch.  Dentro de este bloque podremos utilizar, si queremos, la información de la excepción que estará almacenada en la variable correspondiente al bloque catch. 
+
+7.- Depuración de programas 
+Escribir un programa es sólo una parte del trabajo, la otra parte, no menos importante, es la de probar el programa para encontrar y corregir los posibles problemas que surjan. 
+Es importante que durante la fase de desarrollo intentes "pensar mal" y te pongas en la mente de un usuario que se equivocará o que incluso de forma maliciosa intentará que tu programa no funcione.  Prueba los casos límites, es decir, los valores que están justo en los límites de lo que tu programa admite y los valores que están fuera de lo que tu programa admite.  Con esto conseguirás un programa robusto o al menos localizar en la fase de desarrollo los puntos débiles. 
+Cuando en la fase de pruebas se detecta algún comportamiento no deseado por parte del programa, las herramientas de depuración nos ayudan a localizar el error.  Un depurador es un módulo que se "engancha" a un programa en ejecución y nos permite "ver" lo que hace el programa en tiempo real para localizar donde el programa se desvía de lo que nosotros esperamos que haga. 
+
+7.1.- Puntos de ruptura 
+Un punto de ruptura o breakpoint es una marca que se coloca en una instrucción del programa y que tiene como efecto que el programa se detiene justo antes de ejecutar esa instrucción.  Esto permite examinar los datos de variables y objetos y observar los pasos posteriores.  Existen puntos de ruptura más sofisticados que sólo se activan cuando se dan ciertas condiciones, pero la idea básica es que el programa se detiene en un punto que nos interesa. 
+
+7.2.- Inspección de datos 
+Una vez el programa se ha detenido en un punto de ruptura, o por cualquier otra razón, podemos examinar el valor de las variables y objetos.  Esto es muy útil porque nos permite comprobar si los valores que toman los datos en el programa son los que nosotros esperamos que tomen.  Si no es así, hay un error y podemos acotarlo.  También nos permite cambiar el valor de las variables y objetos, lo que es útil para forzar situaciones o errores que de otra manera serían difíciles de probar. 
+
+7.3.- Ejecución paso a paso 
+Los depuradores nos permiten ejecutar las instrucciones de un programa una a una, lo que nos permite observar cómo se van modificando los datos y si el flujo de ejecución sigue el camino esperado.  Existen varios tipos de controles para la ejecución paso a paso: 
+
+Step Over: Ejecuta la siguiente instrucción.  Si la instrucción es una llamada a mensaje, el depurador ejecuta el mensaje como si fuera una sola instrucción. 
+Step Into: Ejecuta la siguiente instrucción.  Si la instrucción es una llamada a mensaje, la ejecución entra en el código del mensaje.  Esto es útil si también hemos escrito la clase a la que se llama el mensaje. 
+Step Out: Ejecuta el bloque actual hasta que éste finaliza. 
+Run to Cursor: Ejecuta el programa desde donde se encuentra detenido hasta la línea donde está el cursor de escritura.  Cada uno de estos controles tiene su utilidad dependiendo de la tarea de depuración que se esté realizando. 
+7.4.- ¿Cómo se depura un programa? 
+Aunque no existe una única forma de depurar un programa, sí que se pueden dar una serie de guías generales para la depuración: 
+
+Crear un plan de pruebas. 
+Detectar los errores. 
+Localizar el código sospechoso. 
+Establecer puntos de ruptura. 
+Inspeccionar datos. 
+Re-inspeccionar datos. 
+Rehacer las pruebas desde el principio. 
+Finalización. 
+7.5.- El Plan de Pruebas 
+La prueba de una aplicación debe ser sistemática, abarcando tanto los escenarios "normales" (aquellos donde todo funciona como se espera) como los escenarios de "fallo" (donde ocurren problemas, el entorno es inesperado o el usuario introduce datos incorrectos). 
+Un plan de pruebas debe incluir uno o más casos de prueba.  Un caso de prueba es una ejecución precisa del programa con unas interacciones determinadas con el objetivo de obtener una respuesta esperada. 
+Después de tener el plan y haber terminado el programa, se procede a ejecutar cada uno de los casos, comparando el resultado obtenido con el resultado esperado.  Si ambos coinciden, la prueba se considera superada.  Si no coinciden, hay que reflexionar sobre el problema: ¿Es el resultado del programa el correcto o es el caso de prueba el que está mal diseñado?  Si el resultado del programa es erróneo, se procede a depurar el programa, localizar y corregir el error. 
+Una vez corregido el problema, hay que volver a ejecutar el plan de pruebas completo desde el principio.  Esta es una parte fundamental, ya que al corregir un problema se puede, sin querer, haber introducido nuevos problemas en partes del programa que antes funcionaban correctamente. 
+
+8.- Documentación de programas 
+Documentar un programa es importante porque un programa se lee muchas más veces de las que se escribe, especialmente en las fases de mantenimiento.  Una buena documentación facilita la lectura del programa.  Una serie de prácticas recomendables a la hora de documentar un programa son: 
+
+Seguir unas reglas de estilo para que el código tenga una apariencia uniforme y sea fácil de leer y comprender a simple vista. 
+Usar comentarios en el código, especialmente en aquellas partes que no son obvias. 
+Generar la documentación adicional que sea necesaria. 
+8.1.- Documentación interna: comentarios 
+La documentación interna de un programa se limita fundamentalmente a los comentarios.  Java no tiene un nivel de comentarios impuesto, pero el programador deberá añadir comentarios donde sean necesarios, especialmente en aquellas partes del código cuyo propósito no sea evidente a simple vista.  Al menos, cada grupo de instrucciones que realicen una tarea bien definida deben ser documentadas.  Se verá más adelante cómo generar automáticamente documentación (Javadoc) para las interfaces de las clases. 
+
+8.2.- Documentación externa: Diagramas de clases UML 
+Los diagramas de clases UML son una forma de documentación complementaria a la interna.  Un diagrama de clases UML muestra de forma gráfica los objetos o clases existentes y sus relaciones. 
+
+8.2.1.- Clases en UML 
+Una clase en UML se representa con un rectángulo dividido en tres partes: 
+
+La parte superior contiene el nombre de la clase. 
+La parte central contiene los atributos. 
+La parte inferior contiene los mensajes (métodos) de la clase.  Los atributos o mensajes se preceden de un signo + si son públicos (forman parte de la interface) o - si no se desean mostrar en la interface. 
+8.2.2.- Relaciones entre clases 
+Las relaciones más comunes entre clases son: 
+
+8.2.2.1.- Asociación 
+La asociación es una relación entre iguales, es decir, las clases se "usan" mutuamente pero ninguna está subordinada a la otra.  Se representa mediante una línea normal.  En los extremos de la línea se puede indicar la multiplicidad, que es el número de instancias de una clase que se relacionan con las instancias de la otra clase.  También se le puede añadir un nombre para aclarar el propósito de la relación, que suele ser un verbo. 
+Por ejemplo, un Usuario puede tener 0 o más Permisos, pero un Permiso sólo puede estar asociado a 1 Usuario. 
+
+8.2.2.2.- Agregación 
+La agregación es una relación asimétrica de "todo-parte", en la cual un objeto (el todo) está compuesto por otros objetos (las partes).  A veces, las partes no pueden existir independientemente del todo.  Se representa mediante una línea con un rombo en el lado del "todo".  El rombo puede ser relleno o vacío, aunque el criterio para su uso no es claro, el rombo relleno suele implicar una asociación más fuerte. 
+
+8.2.2.3.- Herencia 
+La herencia es una relación de especialización, en la cual una nueva clase extiende (hereda de) una ya existente, añadiendo o modificando los ya existentes de forma que la nueva clase reaproveche lo que tiene de común con la antigua, añadiendo o modificando lo que no se corresponda con la realidad de la nueva. 
+La herencia se representa con una línea con punta de flecha vacía, apuntando en la dirección desde la que hereda hacia la heredada. 
+
+9.- Resumen 
+En este bloque hemos aprendido nuevas e importantes técnicas que son básicas para la programación y que se pueden aplicar prácticamente a cualquier tarea de programación y a cualquier lenguaje, aunque nosotros nos hayamos centrado en el lenguaje Java, nuestro lenguaje de referencia. 
+Asimismo hemos intentado dar respuesta básica a dos tareas que se realizan frecuentemente de forma paralela a la programación: la depuración y la documentación. 
