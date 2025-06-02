@@ -1,0 +1,67 @@
+Bloque 08
+Acceso a bases de datos relacionales
+
+Índice
+
+1.- Introducción.
+2.- Conceptos básicos.
+3.- Acceso a SGBDR en Java.
+4.- Conexión con el SGBDR.
+4.1.- Configuración del driver.
+4.2.- URLs de JDBC.
+4.3.- Establecimiento de conexión.
+4.3.1.- Ejemplo de conexión: MariaDB.
+4.3.2.- Ejemplo de conexión: SQLite.
+4.4.- Cierre de conexiones.
+5.- Sentencias.
+5.1.- Sentencias normales.
+5.2.- Sentencias preparadas.
+6.- Proceso de resultados.
+6.1.- Proceso de claves autogeneradas.
+7.- Referencias.
+
+Contenido detallado:
+
+1.- Introducción.
+En bloques anteriores hemos aprendido a utilizar ficheros para persistir los datos de forma que sobrevivan a las ejecuciones del programa. Esto es solo una parte de la persistencia de datos. Este bloque se centra en el acceso a bases de datos relacionales desde Java.
+
+2.- Conceptos básicos.
+Una base de datos relacional (Relational Database Management System - RDBMS) es un conjunto de datos organizados en tablas, que están interconectadas a través de relaciones. Cada tabla consta de filas (registros) y columnas (campos o atributos). Se describe el modelo relacional y cómo se gestionan los datos en un SGBDR.
+
+3.- Acceso a SGBDR en Java.
+Java Database Connectivity (JDBC) es una API de Java que permite a las aplicaciones Java interactuar con bases de datos. JDBC proporciona un conjunto de interfaces y clases para enviar consultas SQL y procesar los resultados. Se describe la arquitectura de JDBC, incluyendo el Driver Manager y los controladores JDBC específicos para cada SGBDR.
+
+4.- Conexión con el SGBDR.
+
+4.1.- Configuración del driver.
+Para conectar una aplicación Java a una base de datos, es necesario cargar el driver JDBC específico del SGBDR. Esto se hace generalmente añadiendo la biblioteca (JAR) del driver al classpath del proyecto.
+
+4.2.- URLs de JDBC.
+Las URLs de JDBC son cadenas de texto que identifican la ubicación y el tipo de base de datos a la que se desea conectar. El formato general es jdbc:subprotocol:subname, donde subprotocol identifica el driver JDBC y subname contiene información específica de la base de datos (host, puerto, nombre de la base de datos, etc.).
+
+4.3.- Establecimiento de conexión.
+La conexión a la base de datos se establece utilizando la clase DriverManager.getConnection(), que toma como parámetros la URL de JDBC, el nombre de usuario y la contraseña. Esta operación devuelve un objeto Connection, que representa la sesión activa con la base de datos.
+
+4.3.1.- Ejemplo de conexión: MariaDB.
+Se muestra un ejemplo de cómo establecer una conexión con una base de datos MariaDB (o MySQL) utilizando su driver JDBC.
+
+4.3.2.- Ejemplo de conexión: SQLite.
+Se muestra un ejemplo de cómo establecer una conexión con una base de datos SQLite, que es un SGBDR embebido (basado en un archivo).
+
+4.4.- Cierre de conexiones.
+Es crucial cerrar las conexiones a la base de datos, así como los objetos Statement y ResultSet, para liberar los recursos del sistema y de la base de datos. Se recomienda utilizar bloques try-with-resources para asegurar el cierre automático.
+
+5.- Sentencias.
+Una vez establecida la conexión, se pueden ejecutar sentencias SQL. JDBC proporciona diferentes tipos de objetos Statement para ejecutar distintos tipos de consultas.
+
+5.1.- Sentencias normales.
+Los objetos Statement se utilizan para ejecutar sentencias SQL estáticas (sin parámetros). Permiten ejecutar consultas de lectura (executeQuery()), actualizaciones (executeUpdate()) y otras operaciones.
+
+5.2.- Sentencias preparadas.
+Los objetos PreparedStatement se utilizan para ejecutar sentencias SQL precompiladas que pueden contener parámetros (?). Son más eficientes para sentencias que se ejecutan repetidamente y son más seguras contra ataques de inyección SQL. Los parámetros se establecen utilizando métodos setXxx() (ej. setString(), setInt()).
+
+6.- Proceso de resultados.
+Cuando se ejecuta una consulta de lectura (SELECT), el resultado se devuelve en un objeto ResultSet. Este objeto actúa como un cursor que permite navegar por las filas y acceder a los datos de las columnas.
+
+6.1.- Proceso de claves autogeneradas.
+En el caso de campos autogenerados o autoincrementales, es posible obtener los valores que el SGBDR ha generado automáticamente después de hacer una sentencia INSERT, empleando Statement.RETURN_GENERATED_KEYS. Una vez que se ejecuta la sentencia, se puede emplear getGeneratedKeys() para acceder a un ResultSet con los valores de las claves generadas. Este ResultSet es particular ya que no se corresponde con una consulta SQL escrita por el usuario, sino que se recupera desde el driver JDBC. Tendrá una única fila y tantas columnas como campos autogenerados se hayan visto involucrados en la sentencia INSERT (normalmente uno, pero podrían ser más). No se conocen los nombres de las columnas, por lo que hay que acceder a ellas por posición.
