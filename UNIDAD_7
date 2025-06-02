@@ -1,0 +1,73 @@
+Bloque 07
+Utilización avanzada de clases
+
+Índice
+
+1.- Introducción.
+2.- Composición de clases.
+3.- Repaso del concepto de herencia. Súper y subclases.
+4.- Sobreescritura de métodos (polimorfismo)
+4.1.- Reusar la implementación del padre.
+5.- Limitación de la herencia.
+5.1.- Forzar la herencia. Clases y métodos abstractos.
+5.2.- Prohibir la herencia. Clases y métodos finales.
+6.- Revisión de los interfaces.
+7.- Revisión de los constructores.
+7.1.- Lo que ya sabemos...
+7.2.- Constructores y herencia...
+8.- Apéndice A. Interfaces funcionales y lambdas.
+8.1.- Introducción.
+8.2.- Interfaces funcionales.
+8.3.- Uso clásico de los interfaces (funcionales o no).
+8.4.- Lambdas.
+9.- Apéndice B. Principios SOLID de diseño orientado a objetos.
+9.1.- Principio de responsabilidad única.
+9.2.- Principio abierto/cerrado.
+9.3.- Principio de sustitución de Liskov.
+9.4.- Principio de segregación de interfaces.
+9.5.- Principio de inversión de dependencias.
+10.- Apéndice C. El patrón de diseño Visitor.
+10.1.- Introducción.
+10.2.- ¿Cuándo usarlo?
+10.3.- Estructura del patrón.
+10.4.- Ejemplo.
+10.5.- Ventajas del patrón.
+11.- Referencias.
+
+Contenido detallado:
+
+1.- Introducción.
+Este tema revisa y profundiza en algunas de las características más importantes de la programación orientada a objetos en Java.
+
+2.- Composición de clases.
+La composición permite reutilizar objetos de otras clases como atributos dentro de una nueva clase. Un objeto de una clase "contiene" objetos de otras. En el contexto de las relaciones entre clases, se puede decir que hay una relación de "tiene un". Es una relación fuerte, donde el objeto contenido a menudo no tiene sentido sin el que lo contiene, y puede ser destruido si el que lo contiene también lo es.
+
+3.- Repaso del concepto de herencia. Súper y subclases.
+La herencia es un mecanismo fundamental de la programación orientada a objetos que permite a una clase (subclase o clase hija) adquirir las propiedades y comportamientos (atributos y métodos) de otra clase (superclase o clase padre). Una subclase extiende a su superclase, formando una relación "es un". Una subclase puede añadir nuevos atributos y métodos, y redefinir (sobrescribir) los métodos de la superclase.
+
+4.- Sobreescritura de métodos (polimorfismo)
+La sobrescritura de métodos permite a una subclase proporcionar una implementación específica para un método que ya está definido en su superclase. Esto es una forma de polimorfismo, donde diferentes clases pueden responder de manera distinta al mismo mensaje (llamada a método). Para sobrescribir un método, la firma del método (nombre, número y tipo de parámetros) debe ser idéntica en la subclase y la superclase.
+
+4.1.- Reusar la implementación del padre.
+Dentro de un método sobrescrito en la subclase, se puede invocar la implementación del método de la superclase utilizando la palabra clave super. Esto permite extender o complementar el comportamiento original en lugar de reemplazarlo por completo.
+
+5.- Limitación de la herencia.
+
+5.1.- Forzar la herencia. Clases y métodos abstractos.
+Una clase abstracta es una clase que no puede ser instanciada directamente (no se pueden crear objetos de ella). Su propósito principal es servir como base para otras clases. Puede contener métodos abstractos, que son métodos declarados pero sin implementación; las subclases concretas deben proporcionar la implementación de estos métodos abstractos. Las clases abstractas también pueden contener métodos y atributos concretos. Se declaran con la palabra clave abstract.
+
+5.2.- Prohibir la herencia. Clases y métodos finales.
+La palabra clave final se utiliza para evitar que una clase sea extendida o que un método sea sobrescrito.
+
+Una clase final no puede tener subclases.
+Un método final en una superclase no puede ser sobrescrito por ninguna subclase.
+6.- Revisión de los interfaces.
+Un interfaz en Java es un contrato que define un conjunto de métodos que una clase debe implementar. Un interfaz no contiene implementaciones de métodos (excepto en Java 8 y posteriores con métodos default y static). Las clases que implementan un interfaz se comprometen a proporcionar una implementación para todos los métodos definidos en el interfaz. Un interfaz es una forma de lograr polimorfismo y definir comportamientos comunes para clases no relacionadas por herencia.
+
+7.- Revisión de los constructores.
+
+7.1.- Lo que ya sabemos...
+Un constructor es un método especial que se utiliza para inicializar los objetos de una clase cuando son creados. Tienen el mismo nombre que la clase y no tienen tipo de retorno. Pueden estar sobrecargados, lo que significa que una clase puede tener múltiples constructores con diferentes listas de parámetros.
+
+7.2.- Constructores y herencia.
+Cuando se crea un objeto de una subclase, se invoca primero el constructor de la superclase y luego el de la subclase. Si no se especifica explícitamente, Java inserta una llamada implícita a super() (el constructor sin argumentos de la superclase) como la primera sentencia en el constructor de la subclase. Se puede llamar explícitamente a un constructor específico de la superclase usando super(argumentos).
