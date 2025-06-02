@@ -1,0 +1,171 @@
+Bloque 04 - Desarrollo de Clases
+
+Índice
+1.- Introducción
+2.- Repaso de conceptos básicos
+2.1.- Objeto
+2.2.- Clase
+3.- Estructura y miembros de una clase
+3.1.- Visibilidad de los miembros de una clase
+4.- Atributos
+5.- Métodos
+5.1.- Mecanismo de paso de parámetros
+5.2.- Acceso a los atributos
+5.2.1.- Acceso a los atributos desde un método de instancia
+5.2.2.- Acceso a los atributos desde un método de clase
+5.3.- Envío de mensajes dentro de la misma clase
+5.4.- Valores de retorno
+5.5.- Sobrecarga de métodos
+5.6.- Ocultación completa de atributos - Métodos accesores/mutadores (getters/setters)
+5.7.- Métodos como mini-programas
+6.- Constructores
+6.1.- Definición de constructores
+6.2.- Invocación de constructores
+6.3.- Invocación de un constructor a otro
+6.4.- Inicialización estática de atributos
+6.5.- Atributos constantes
+7.- Documentación de clases
+8.- Creación y lanzamiento de excepciones
+8.1.- Creación de excepciones
+8.2.- Lanzamiento de excepciones
+8.3.- Declaración de excepciones
+9.- Herencia
+9.1.- Superclases y subclases
+9.2.- Las clases heredadas
+9.3.- Creación de una clase heredada
+9.3.1.- Constructores en clases heredadas
+9.4.- Creación de interfaces
+9.5.- Implementación de interfaces
+9.6.- Uso de clases heredadas
+9.6.1.- Sustitución Superclase por Subclase
+9.6.1.1.- Conversión forzada (casting)
+9.6.1.2.- El operador instanceof
+9.6.2.- Uso de Interfaces
+9.7.- Métodos estándar
+9.7.1.- Método equals
+9.7.2.- Método toString
+9.8.- Herencia y excepciones
+9.8.1.- Atributos de Exception
+10.- Creación de librerías
+11.- Referencias
+
+1.- Introducción
+Hasta este momento hemos utilizado clases hechas por otros, ya sea en forma de librerías o bien en forma de clases predefinidas que se incluyen con Java. En este bloque vamos a introducir cómo crear nuestras propias clases, tanto para nuestras aplicaciones como para crear librerías que puedan ser reutilizadas en el futuro, tanto por nosotros mismos como por otros.
+
+2.- Repaso de conceptos básicos
+Aunque ya los introdujimos en el bloque 2 vamos a repasar conceptos que o bien necesitamos para desarrollar este tema o bien vamos a desarrollar directamente en este tema.
+
+2.1.- Objeto
+Un objeto es una representación en el ordenador de algo que puede existir en el mundo real. Un objeto tiene como propiedades la identidad, el estado y el comportamiento.
+
+2.2.- Clase
+Los objetos de un programa se definen mediante clases. Una clase es un grupo de objetos que comparten características comunes.
+
+3.- Estructura y miembros de una clase
+En Java, una clase se declara usando la palabra clave class, seguida del nombre de la clase, seguida de un bloque en el que se definen los componentes o miembros de una clase. Estos miembros pueden ser:
+
+Atributos.
+
+Métodos.
+
+Constructores.
+
+3.1.- Visibilidad de los miembros de una clase
+Java ofrece un mecanismo llamado control de visibilidad que permite especificar, para cada miembro de una clase, si este forma parte o no del interfaz. Las palabras clave y su significado son:
+
+public.
+
+private.
+
+protected.
+
+Visibilidad a nivel de paquete (sin modificador).
+
+4.- Atributos
+La declaración de un atributo es bastante sencilla. Se declara igual que una variable pero se hace como parte del cuerpo de una clase. La forma general de declaración de un atributo es:
+[visibilidad] [static] tipo nombre [= inicialización];
+
+5.- Métodos
+Los métodos son bloques de código que se definen para responder a un mensaje que pueda recibir el objeto. Un método se define utilizando la siguiente sintaxis:
+[visibilidad] [static] tipo nombre(lista_parámetros) { ... }
+
+5.1.- Mecanismo de paso de parámetros
+Permite transmitir información entre el objeto que envía el mensaje y el objeto que lo recibe en el momento en que se realiza el envío.
+
+5.2.- Acceso a los atributos
+Todos los métodos de una clase pueden acceder a todos los atributos de la misma, sea cual sea su visibilidad o su pertenencia.
+
+5.3.- Envío de mensajes dentro de la misma clase
+Dentro de una misma clase se pueden realizar envíos de mensajes.
+
+5.4.- Valores de retorno
+Los métodos pueden devolver uno (y sólo uno) valor de retorno al terminar la ejecución del cuerpo.
+
+5.5.- Sobrecarga de métodos
+En Java es posible escribir más de un método para el mismo mensaje.
+
+5.6.- Ocultación completa de atributos - Métodos accesores/mutadores (getters/setters)
+Es una buena práctica en programación orientada a objetos que el interfaz de una clase ofrezca sólo métodos y no ofrezca atributos.
+
+5.7.- Métodos como mini-programas
+Por la forma en que están diseñados, los métodos permiten que los podamos crear de la forma más independiente posible respecto a otros métodos de la misma clase.
+
+6.- Constructores
+Los constructores son un tipo especial de método que se incluyen en una clase y que tienen el propósito específico de inicializar una instancia de un objeto.
+
+6.1.- Definición de constructores
+Un constructor de una clase debe tener como nombre el mismo nombre que la clase, exactamente igual.
+
+6.2.- Invocación de constructores
+Los constructores se llaman automáticamente al usar el operador new.
+
+6.3.- Invocación de un constructor a otro
+A veces es interesante el poder hacer una llamada desde un constructor a otro.
+
+6.4.- Inicialización estática de atributos
+Los atributos también se pueden inicializar de la manera a la que estamos acostumbrados a inicializar variables locales.
+
+6.5.- Atributos constantes
+Es posible hacer atributos que sean constantes.
+
+7.- Documentación de clases
+Para documentar las clases y sus partes, se utiliza el formato JavaDoc.
+
+8.- Creación y lanzamiento de excepciones
+Un tipo especial de clase son las excepciones. Java proporciona un gran número de clases de excepciones ya definidas, pero también podemos crear nuestras propias excepciones.
+
+8.1.- Creación de excepciones
+Para crear una excepción chequeada debemos crear una nueva clase que herede de Exception. Para una excepción no chequeada, hereda de RuntimeException.
+
+8.2.- Lanzamiento de excepciones
+Cuando en la implementación de nuestros métodos nos encontramos con una condición excepcional, es el momento de lanzar nuestra excepción.
+
+8.3.- Declaración de excepciones
+Java hace una comprobación en cada método que pueda recibir una excepción chequeada.
+
+9.- Herencia
+El mecanismo de herencia permite aprovechar las similaridades entre clases para evitar repetir el mismo código.
+
+9.1.- Superclases y subclases
+Se dice que una clase hereda de otra cuando la primera es un caso especial de la segunda.
+
+9.2.- Las clases heredadas
+Cuando una subclase hereda de una superclase, adquiere de forma automática todos los atributos y mensajes de la superclase.
+
+9.3.- Creación de una clase heredada
+La creación de clases heredadas es bastante simple.
+
+9.4.- Creación de interfaces
+Un interfaz es un tipo especial de clase padre.
+
+9.5.- Implementación de interfaces
+Una clase puede declarar que implementa un interfaz añadiendo a su declaración la cláusula implements.
+
+9.6.- Uso de clases heredadas
+El uso de clases heredadas es bastante simple.
+
+9.7.- Métodos estándar
+Los métodos "estándar" equals y toString pueden ser empleados en todos los objetos en Java.
+
+9.8.- Herencia y excepciones
+Las excepciones heredan unas de otras.
